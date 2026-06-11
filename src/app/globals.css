@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* ---------- Contend design tokens (CLAUDE.md §13–15) ---------- */
+
+@theme {
+  --color-paper: #faf8f4;
+  --color-ink: #0e0e10;
+  --color-ink-soft: #4a4a52;
+  --color-line: rgb(14 14 16 / 0.1);
+  --color-accent: #7a2e2e;
+  --color-accent-deep: #5e2323;
+  --color-gold: #b08d3e;
+  --color-focus-bg: #15151a;
+  --color-focus-card: #1c1c23;
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+
+  --radius-card: 12px;
+}
+
+/* Semantic variables — study mode (paper) by default */
+:root {
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --muted: #4a4a52;
+  --surface: #ffffff;
+  --line-soft: rgb(14 14 16 / 0.1);
+  --line-strong: rgb(14 14 16 / 0.18);
+}
+
+/* Focus mode — review, respond, spar: the sparring ring */
+[data-mode="focus"] {
+  --background: var(--color-focus-bg);
+  --foreground: #f2efe9;
+  --muted: #a8a5b0;
+  --surface: var(--color-focus-card);
+  --line-soft: rgb(242 239 233 / 0.12);
+  --line-strong: rgb(242 239 233 / 0.22);
+}
+
+/* Map semantic variables into Tailwind utilities */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-fg: var(--muted);
+  --color-surface: var(--surface);
+  --color-line-soft: var(--line-soft);
+  --color-line-strong: var(--line-strong);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 200ms ease-out;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
