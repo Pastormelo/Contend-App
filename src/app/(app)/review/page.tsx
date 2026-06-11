@@ -1,8 +1,13 @@
-export default function Page() {
+import { ReviewSession } from "@/components/cards/review-session";
+
+export const metadata = { title: "Review" };
+
+export default function ReviewPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="font-display text-2xl font-semibold">Review</h1>
-      <p className="mt-3 text-sm text-muted-fg">Coming in a later session.</p>
-    </main>
+    <div data-mode="focus" className="flex flex-1 flex-col bg-background text-foreground">
+      <main className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center px-5 py-12 sm:px-6">
+        <ReviewSession />
+      </main>
+    </div>
   );
 }
