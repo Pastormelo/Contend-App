@@ -17,9 +17,9 @@ export const XP = {
   lessonComplete: 50,
   checkpointPass: 25,
   queueComplete: 15,
-  respondMin: 20,
+  respondMin: 0,
   respondMax: 100,
-  simulationMin: 50,
+  simulationMin: 0,
   simulationMax: 250,
 } as const;
 

@@ -16,7 +16,18 @@ export function buildRespondPrompt({
 You are scoring a single written response to an objection (a timed drill).
 Return rubric scores, short actionable feedback (2-4 sentences), and a
 stronger model answer the user can learn from (under 120 words, in plain
-spoken English — sentences a real person could say out loud).`;
+spoken English — sentences a real person could say out loud).
+
+SCORING DISCIPLINE — this is a training tool, not an encouragement tool:
+- Score what is actually on the page, never intent or potential.
+- A non-answer ("I don't know", "no answer", a refusal, filler, or anything
+  that does not engage the objection) scores 1 in EVERY category. There is
+  no participation credit.
+- A response that engages but is vague, incomplete, or makes no biblical
+  case scores 2s. Reserve 4 for genuinely strong work and 5 for a response
+  that would hold up against a sharp, real interlocutor.
+- Be direct in the feedback. Name the specific failure plainly — no
+  cushioning, no "great effort!". Honest, never insulting.`;
 
   const prompt = `OBJECTION POSED TO THE USER:
 ${objection}

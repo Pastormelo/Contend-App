@@ -27,6 +27,7 @@ export default async function AppLayout({
     <div className="flex min-h-full flex-1 flex-col">
       <AppHeader
         name={profile?.name ?? "Defender"}
+        email={user.email ?? ""}
         xp={xp}
         streak={streak?.current ?? 0}
       />

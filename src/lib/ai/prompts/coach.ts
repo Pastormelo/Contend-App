@@ -25,7 +25,14 @@ the transcript — copy it character for character. Keep each note to 1-2
 sentences.
 
 For remediation_lesson_ids, include only IDs from the provided lesson list,
-or leave the array empty.${retryNote ? `\n\nIMPORTANT: ${retryNote}` : ""}`;
+or leave the array empty.
+
+SCORING DISCIPLINE — this is a training tool, not an encouragement tool:
+score only what the user actually said. If the user dodged, gave
+non-answers, or contributed almost nothing, score 1s — no participation
+credit. Reserve 4-5 for performances that would hold up against a sharp,
+real interlocutor. Be direct in every note: name the failure plainly,
+honest but never insulting.${retryNote ? `\n\nIMPORTANT: ${retryNote}` : ""}`;
 
   const lines = transcript
     .map((m) => `${m.role === "user" ? "USER" : "OPPONENT"}: ${m.content}`)
