@@ -161,7 +161,7 @@ export default async function AccountPage() {
           <p>
             <strong className="font-semibold text-foreground">Levels</strong>{" "}
             mark what you are equipped to do in a real conversation, from
-            Beginner ("can explain the basics in plain language") up through
+            Beginner (&ldquo;can explain the basics in plain language&rdquo;) up through
             Defender and beyond. You advance by completing a course&apos;s
             lessons and proving it under pressure.
           </p>
