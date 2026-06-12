@@ -74,17 +74,26 @@ export default async function LessonPage({
     <>
       <LessonProgressRail />
       <main className="mx-auto w-full max-w-[68ch] px-5 py-12 sm:px-6">
-        <header>
-          <p className="text-xs font-medium uppercase tracking-[0.12em] text-muted-fg">
-            The Trinity · Level 1 · ~{lesson.est_minutes} min
+        <header className="border-b border-line-soft pb-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+            The Trinity · Level 1
           </p>
           <h1 className="mt-3 font-display text-[clamp(1.875rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight">
             {lesson.title}
           </h1>
+          <p className="mt-3 text-sm text-muted-fg">
+            A {lesson.est_minutes}-minute lesson · tap any{" "}
+            <span className="font-medium text-accent">scripture reference</span>{" "}
+            to read it, and any{" "}
+            <span className="rounded-full border border-line-strong px-2 py-0.5 text-xs font-medium text-muted-fg">
+              term
+            </span>{" "}
+            for its full definition.
+          </p>
         </header>
 
         <article className="mt-4">
-          {blocks.map((block) => {
+          {blocks.map((block, i) => {
             const citations = citationsByBlock.get(block.id) ?? [];
             const start = citationCounter;
             citationCounter += citations.length;
@@ -95,6 +104,7 @@ export default async function LessonPage({
                   glossary={glossary}
                   citations={citations}
                   citationStart={start}
+                  first={i === 0}
                 />
               </div>
             );

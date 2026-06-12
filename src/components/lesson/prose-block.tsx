@@ -10,6 +10,7 @@ export function ProseBlock({
   citations = [],
   citationStart = 1,
   variant = "prose",
+  dropCap = false,
 }: {
   heading?: string;
   md: string;
@@ -17,24 +18,39 @@ export function ProseBlock({
   citations?: CitationInfo[];
   citationStart?: number;
   variant?: "prose" | "objection";
+  dropCap?: boolean;
 }) {
   return (
     <section
       className={cn(
         "my-10",
         variant === "objection" &&
-          "rounded-card border border-line-strong bg-foreground/[0.03] p-6",
+          "rounded-card border border-accent/25 bg-accent/[0.03] p-6 sm:p-7",
       )}
     >
+      {heading && variant === "objection" && (
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+          Steelmanned — their strongest form
+        </p>
+      )}
       {heading && (
-        <h2 className="font-display text-xl font-semibold tracking-tight">
-          {variant === "objection" ? <>⚔ {heading}</> : heading}
+        <h2
+          className={cn(
+            "font-display text-xl font-semibold tracking-tight",
+            variant === "objection" && "mt-2",
+            variant === "prose" &&
+              "flex items-center gap-3 after:h-px after:flex-1 after:bg-line-soft after:content-['']",
+          )}
+        >
+          {heading}
         </h2>
       )}
       <p
         className={cn(
           "text-[1.0625rem] leading-[1.75]",
           heading && "mt-4",
+          dropCap &&
+            "first-letter:float-left first-letter:mr-2.5 first-letter:mt-1 first-letter:font-display first-letter:text-[3.25rem] first-letter:font-semibold first-letter:leading-[0.85] first-letter:text-accent",
         )}
       >
         {renderInline(md)}

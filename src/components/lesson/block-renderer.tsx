@@ -28,11 +28,13 @@ export function BlockRenderer({
   glossary,
   citations,
   citationStart,
+  first = false,
 }: {
   block: LessonBlock;
   glossary: Map<string, GlossaryEntry>;
   citations: CitationInfo[];
   citationStart: number;
+  first?: boolean;
 }) {
   const content = (block.content ?? {}) as BlockContent;
   const terms = (content.terms ?? [])
@@ -48,6 +50,7 @@ export function BlockRenderer({
           terms={terms}
           citations={citations}
           citationStart={citationStart}
+          dropCap={first}
         />
       );
     case "objection":

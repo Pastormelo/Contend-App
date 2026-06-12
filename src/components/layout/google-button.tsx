@@ -6,16 +6,28 @@ import { Button } from "@/components/ui/button";
 
 export function GoogleButton() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleClick() {
     setLoading(true);
+    setError(null);
     const supabase = createClient();
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
       },
     });
+    if (error) {
+      setLoading(false);
+      setError(
+        "Google sign-in isn't available right now — use email instead.",
+      );
+    }
+  }
+
+  if (error) {
+    return <p className="text-center text-sm text-accent">{error}</p>;
   }
 
   return (

@@ -29,19 +29,27 @@ export function ScriptureBlock({
   }, [reference]);
 
   return (
-    <figure className="my-10 border-l-2 border-accent/60 pl-5">
-      <blockquote className="font-display text-[1.0625rem] italic leading-[1.75]">
+    <figure className="relative my-12 rounded-card border border-line-soft bg-foreground/[0.02] px-6 py-7 sm:px-8">
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -top-1 left-4 select-none font-display text-6xl font-semibold leading-none text-accent/15"
+      >
+        “
+      </span>
+      <figcaption className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+        {reference}
+        <span className="h-px flex-1 bg-line-soft" />
+        <span className="font-medium text-muted-fg">ESV</span>
+      </figcaption>
+      <blockquote className="mt-4 font-display text-[1.125rem] italic leading-[1.8]">
         {text ?? (
-          <span className="text-muted-fg not-italic text-sm">
+          <span className="text-sm not-italic text-muted-fg">
             {failed ? "Open your Bible to this passage —" : "Loading passage…"}
           </span>
         )}
       </blockquote>
-      <figcaption className="mt-2 text-xs font-medium uppercase tracking-[0.12em] text-muted-fg">
-        {reference} · ESV
-      </figcaption>
       {note && (
-        <p className="mt-3 text-sm leading-relaxed text-muted-fg">
+        <p className="mt-4 border-t border-line-soft pt-4 text-sm leading-relaxed text-muted-fg">
           {renderInline(note)}
         </p>
       )}
