@@ -89,6 +89,95 @@ h3,
   font-family: var(--font-display), ui-serif, Georgia, serif;
 }
 
+/* ---------- Motion system ---------- */
+
+/* Scroll reveal: elements start hidden, .is-visible animates them in.
+   Stagger siblings with --reveal-delay. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Animated link underline */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  padding-bottom: 2px;
+}
+
+.link-underline:hover {
+  background-size: 100% 1.5px;
+}
+
+/* Interactive card: lift + deepen border on hover, settle on press */
+.card-interactive {
+  transition:
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 250ms ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 2px rgb(14 14 16 / 0.04),
+    0 8px 24px -8px rgb(14 14 16 / 0.16);
+}
+
+.card-interactive:active {
+  transform: translateY(-1px);
+  transition-duration: 80ms;
+}
+
+/* Gentle attention pulse for live elements (streak flame, due counts) */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+/* Shake for wrong answers in games */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 320ms ease-in-out;
+}
+
+/* Pop-in for matched pairs / correct answers */
+@keyframes pop {
+  0% { transform: scale(0.92); }
+  55% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.animate-pop {
+  animation: pop 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -4,12 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { StreakFlame } from "@/components/progress/streak-flame";
+import { LogoMark } from "@/components/layout/logo";
 
 const NAV = [
   { href: "/dashboard", label: "Today" },
   { href: "/tracks", label: "Courses" },
   { href: "/review", label: "Review" },
   { href: "/spar", label: "Spar" },
+  { href: "/games", label: "Games" },
 ];
 
 export function AppHeader({
@@ -31,8 +33,9 @@ export function AppHeader({
         <div className="flex items-center gap-8">
           <Link
             href="/dashboard"
-            className="font-display text-lg font-semibold tracking-tight"
+            className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight"
           >
+            <LogoMark className="h-7 text-accent" />
             Contend
           </Link>
           <nav className="hidden items-center gap-6 sm:flex">

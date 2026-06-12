@@ -9,6 +9,7 @@ const PROTECTED_PREFIXES = [
   "/respond",
   "/spar",
   "/account",
+  "/games",
   "/admin",
 ];
 

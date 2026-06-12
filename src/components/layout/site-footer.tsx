@@ -1,13 +1,14 @@
 import Link from "next/link";
+import { Logo } from "@/components/layout/logo";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-line-soft bg-foreground/[0.02]">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 sm:grid-cols-3 sm:px-10">
         <div>
-          <p className="font-display text-lg font-semibold tracking-tight">
-            Contend
-          </p>
+          <span className="text-accent">
+            <Logo />
+          </span>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
             Training Christians to defend the faith with clarity, conviction,
             and grace — always ready to give an answer.

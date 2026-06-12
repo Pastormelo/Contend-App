@@ -19,6 +19,7 @@ export const XP = {
   queueComplete: 15,
   respondMin: 0,
   respondMax: 100,
+  gameComplete: 15,
   simulationMin: 0,
   simulationMax: 250,
 } as const;

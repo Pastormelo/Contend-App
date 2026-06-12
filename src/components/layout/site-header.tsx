@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/layout/logo";
 
 const NAV = [
   { href: "/about", label: "Why Contend" },
@@ -10,15 +11,18 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line-soft bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:px-10">
-        <Link href="/" className="font-display text-xl font-semibold tracking-tight">
-          Contend
+        <Link
+          href="/"
+          className="text-accent transition-opacity hover:opacity-80"
+        >
+          <Logo />
         </Link>
         <nav className="hidden items-center gap-7 md:flex">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-ink"
+              className="link-underline text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-ink"
             >
               {item.label}
             </Link>
