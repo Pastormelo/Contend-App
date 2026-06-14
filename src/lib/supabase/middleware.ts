@@ -14,6 +14,7 @@ const PROTECTED_PREFIXES = [
   "/leaderboard",
   "/friends",
   "/assessment",
+  "/notes",
   "/admin",
 ];
 

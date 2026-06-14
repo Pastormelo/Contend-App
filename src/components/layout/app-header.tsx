@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -15,6 +16,15 @@ const NAV = [
   { href: "/groups", label: "Groups" },
 ];
 
+// The full set shown in the mobile menu and (partly) the account dropdown.
+const MORE = [
+  { href: "/notes", label: "Notes" },
+  { href: "/leaderboard", label: "Leaderboard" },
+  { href: "/friends", label: "Friends" },
+  { href: "/account", label: "Account & progress" },
+  { href: "/how-it-works", label: "How training works" },
+];
+
 export function AppHeader({
   name,
   email,
@@ -27,11 +37,35 @@ export function AppHeader({
   streak: number;
 }) {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close the mobile menu whenever the route changes.
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-line-soft bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4 sm:px-6">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-3 sm:gap-8">
+          <button
+            type="button"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+            className="-ml-1 flex h-9 w-9 items-center justify-center rounded-md text-foreground hover:bg-foreground/5 sm:hidden"
+          >
+            {menuOpen ? (
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+
           <Link
             href="/dashboard"
             className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight"
@@ -39,6 +73,7 @@ export function AppHeader({
             <LogoMark className="h-7 text-accent" />
             Witness Ready
           </Link>
+
           <nav className="hidden items-center gap-6 sm:flex">
             {NAV.map((item) => (
               <Link
@@ -126,30 +161,15 @@ export function AppHeader({
                 <p className="mt-0.5 truncate text-xs text-muted-fg">{email}</p>
               </div>
               <nav className="flex flex-col py-1">
-                <Link
-                  href="/account"
-                  className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
-                >
-                  Account &amp; progress
-                </Link>
-                <Link
-                  href="/leaderboard"
-                  className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
-                >
-                  Leaderboard
-                </Link>
-                <Link
-                  href="/friends"
-                  className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
-                >
-                  Friends
-                </Link>
-                <Link
-                  href="/how-it-works"
-                  className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
-                >
-                  How training works
-                </Link>
+                {MORE.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </nav>
               <form action="/auth/signout" method="post" className="border-t border-line-soft pt-1">
                 <button
@@ -163,6 +183,34 @@ export function AppHeader({
           </Popover>
         </div>
       </div>
+
+      {/* Mobile slide-down menu */}
+      {menuOpen && (
+        <nav className="border-t border-line-soft bg-background sm:hidden">
+          <div className="mx-auto flex w-full max-w-5xl flex-col px-4 py-2">
+            {[...NAV, ...MORE].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  "rounded-md px-2 py-2.5 text-sm font-medium transition-colors hover:bg-foreground/5 " +
+                  (pathname.startsWith(item.href) ? "text-foreground" : "text-muted-fg")
+                }
+              >
+                {item.label}
+              </Link>
+            ))}
+            <form action="/auth/signout" method="post" className="mt-1 border-t border-line-soft pt-1">
+              <button
+                type="submit"
+                className="w-full rounded-md px-2 py-2.5 text-left text-sm font-medium text-accent hover:bg-foreground/5"
+              >
+                Sign out
+              </button>
+            </form>
+          </div>
+        </nav>
+      )}
     </header>
   );
 }

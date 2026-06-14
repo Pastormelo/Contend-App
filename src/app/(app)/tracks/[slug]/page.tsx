@@ -29,7 +29,33 @@ export default async function TrackPage({
     .eq("slug", slug)
     .single();
 
-  if (!track || track.status !== "live") notFound();
+  // If this is a known course whose content hasn't been loaded into the
+  // database yet, explain that rather than throwing a bare 404.
+  if (!track) {
+    const node = course(slug);
+    if (node?.hasContent) {
+      return (
+        <main className="mx-auto w-full max-w-xl flex-1 px-5 py-16 text-center sm:px-6">
+          <h1 className="font-display text-2xl font-semibold tracking-tight">
+            {node.title} isn&apos;t loaded yet
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-muted-fg">
+            This course&apos;s lessons haven&apos;t been added to the database
+            yet. If you&apos;re the administrator, run the course&apos;s SQL
+            file in Supabase; otherwise check back shortly.
+          </p>
+          <Link
+            href="/tracks"
+            className="mt-6 inline-block text-sm font-medium text-accent hover:text-accent-deep"
+          >
+            ← Back to courses
+          </Link>
+        </main>
+      );
+    }
+    notFound();
+  }
+  if (track.status !== "live") notFound();
 
   const [{ data: levels }, { data: passedAttempts }] = await Promise.all([
     supabase

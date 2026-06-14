@@ -4,6 +4,9 @@ import { BlockRenderer } from "@/components/lesson/block-renderer";
 import { LessonProgressRail } from "@/components/lesson/lesson-progress-rail";
 import { LessonCompleteCTA } from "@/components/lesson/lesson-complete-cta";
 import { LessonGroupDiscussion } from "@/components/social/lesson-group-discussion";
+import { ReadAloud } from "@/components/lesson/read-aloud";
+import { LessonNotes } from "@/components/notes/lesson-notes";
+import { lessonReadable, lessonSections } from "@/lib/lesson-tts";
 import type { GlossaryEntry } from "@/components/lesson/term-callout";
 import type { CitationInfo } from "@/components/lesson/citation-card";
 import { z } from "zod";
@@ -85,6 +88,9 @@ export default async function LessonPage({
   }
   let citationCounter = 1;
 
+  const readableSegments = lessonReadable(lesson.title, blocks);
+  const sections = lessonSections(blocks);
+
   return (
     <>
       <LessonProgressRail />
@@ -107,6 +113,8 @@ export default async function LessonPage({
           </p>
         </header>
 
+        <ReadAloud segments={readableSegments} />
+
         <article className="mt-4">
           {blocks.map((block, i) => {
             const citations = citationsByBlock.get(block.id) ?? [];
@@ -127,6 +135,13 @@ export default async function LessonPage({
         </article>
 
         <LessonCompleteCTA lessonId={lesson.id} />
+
+        <LessonNotes
+          lessonId={lesson.id}
+          trackSlug={trackSlug}
+          lessonTitle={lesson.title}
+          sections={sections}
+        />
 
         <LessonGroupDiscussion lessonId={lesson.id} trackSlug={trackSlug} />
       </main>
