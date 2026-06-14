@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { StreakFlame } from "@/components/progress/streak-flame";
-import { LogoMark } from "@/components/layout/logo";
+import { Logo } from "@/components/layout/logo";
 
 const NAV = [
   { href: "/dashboard", label: "Today" },
@@ -66,12 +66,8 @@ export function AppHeader({
             )}
           </button>
 
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight"
-          >
-            <LogoMark className="h-7 text-accent" />
-            Witness Ready
+          <Link href="/dashboard" aria-label="Witness Ready — dashboard">
+            <Logo className="text-lg" />
           </Link>
 
           <nav className="hidden items-center gap-6 sm:flex">

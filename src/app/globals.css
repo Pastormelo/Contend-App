@@ -3,15 +3,18 @@
 /* ---------- Witness Ready design tokens (CLAUDE.md §13–15) ---------- */
 
 @theme {
-  --color-paper: #faf8f4;
-  --color-ink: #0e0e10;
+  --color-paper: #f7f4ee;
+  --color-ink: #0b0b0e;
   --color-ink-soft: #4a4a52;
-  --color-line: rgb(14 14 16 / 0.1);
-  --color-accent: #7a2e2e;
-  --color-accent-deep: #5e2323;
-  --color-gold: #b08d3e;
-  --color-focus-bg: #15151a;
-  --color-focus-card: #1c1c23;
+  --color-line: rgb(11 11 14 / 0.1);
+  /* Deepened oxblood — richer and more saturated than before */
+  --color-accent: #8a2329;
+  --color-accent-deep: #681a1f;
+  /* A brighter oxblood for accents/links on dark surfaces */
+  --color-accent-bright: #c85a5e;
+  --color-gold: #c2a253;
+  --color-focus-bg: #0e0e13;
+  --color-focus-card: #17171e;
 
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-inter);
@@ -59,7 +62,21 @@ body {
 
 /* Refinement details */
 ::selection {
-  background: rgb(122 46 46 / 0.18);
+  background: rgb(138 35 41 / 0.2);
+}
+
+/* Editorial detail: a thin eyebrow rule used beside section labels */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* Subtle moving sheen for arena cards on hover */
+@keyframes sheen {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
 }
 
 html {
