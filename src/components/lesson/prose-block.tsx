@@ -47,7 +47,7 @@ export function ProseBlock({
       )}
       <p
         className={cn(
-          "text-[1.0625rem] leading-[1.75]",
+          "font-display text-[1.1875rem] leading-[1.8]",
           heading && "mt-4",
           dropCap &&
             "first-letter:float-left first-letter:mr-2.5 first-letter:mt-1 first-letter:font-display first-letter:text-[3.25rem] first-letter:font-semibold first-letter:leading-[0.85] first-letter:text-accent",

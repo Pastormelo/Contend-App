@@ -1,50 +1,50 @@
 @import "tailwindcss";
 
-/* ---------- Witness Ready · "Contend" design system (dark-first) ---------- */
+/* ---------- Witness Ready · "Divinity" design system (scholarly, light) ---------- */
 
 @theme {
   /* Raw palette */
-  --color-canvas: #0b0b0f;
-  --color-paper: #ececf1; /* light tone — used as text on dark (text-paper) */
-  --color-ink: #0b0b0f; /* deep surface — used as bg-ink */
-  --color-ink-soft: #8a8a99; /* steel — used as muted text (text-ink-soft) */
-  --color-line: rgb(236 236 241 / 0.1);
+  --color-paper: #f4f0e6; /* warm bone */
+  --color-ink: #1a1714; /* espresso-black */
+  --color-ink-soft: #5c544b; /* warm muted ink */
+  --color-line: rgb(26 23 20 / 0.12);
 
-  /* Electric cobalt accent */
-  --color-accent: #4d6bff;
-  --color-accent-deep: #3b54e6;
-  --color-accent-bright: #8298ff;
+  /* Deep evergreen accent */
+  --color-accent: #1e4d3a;
+  --color-accent-deep: #163a2c;
+  --color-accent-bright: #2f6b50;
 
-  /* Warm secondary (insignia, games, streak) */
-  --color-gold: #d9b65a;
+  /* Brass — insignia, rules, earned states */
+  --color-gold: #b08d3e;
 
-  --color-focus-bg: #08080b;
-  --color-focus-card: #131319;
+  /* Sparring ring stays dark (focus mode) */
+  --color-focus-bg: #15171a;
+  --color-focus-card: #1e2125;
 
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-newsreader);
   --font-sans: var(--font-inter);
 
-  --radius-card: 14px;
+  --radius-card: 12px;
 }
 
-/* Semantic variables — the whole app is dark */
+/* Semantic variables — study/reading default (warm paper) */
 :root {
-  --background: #0b0b0f;
-  --foreground: #ececf1;
-  --muted: #8a8a99;
-  --surface: #15151c;
-  --line-soft: rgb(236 236 241 / 0.08);
-  --line-strong: rgb(236 236 241 / 0.16);
+  --background: #f4f0e6;
+  --foreground: #1a1714;
+  --muted: #5c544b;
+  --surface: #fbfaf4; /* cards lift just off the bone paper */
+  --line-soft: rgb(26 23 20 / 0.1);
+  --line-strong: rgb(26 23 20 / 0.18);
 }
 
-/* Focus mode — review, respond, spar, games: a deeper, flatter ring */
+/* Focus mode — review, respond, spar, games: the dark sparring ring */
 [data-mode="focus"] {
-  --background: #08080b;
-  --foreground: #f4f4f8;
-  --muted: #9a9aa6;
-  --surface: #131319;
-  --line-soft: rgb(236 236 241 / 0.08);
-  --line-strong: rgb(236 236 241 / 0.18);
+  --background: #15171a;
+  --foreground: #f1efe8;
+  --muted: #a7a39a;
+  --surface: #1e2125;
+  --line-soft: rgb(241 239 232 / 0.12);
+  --line-strong: rgb(241 239 232 / 0.22);
 }
 
 /* Map semantic variables into Tailwind utilities */
@@ -63,9 +63,9 @@ body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   transition: background-color 200ms ease-out;
-  /* Faint texture on dark */
-  background-image: radial-gradient(rgb(236 236 241 / 0.022) 1px, transparent 1px);
-  background-size: 26px 26px;
+  /* Faint paper grain */
+  background-image: radial-gradient(rgb(26 23 20 / 0.02) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
 body:has([data-mode="focus"]) {
@@ -73,7 +73,7 @@ body:has([data-mode="focus"]) {
 }
 
 ::selection {
-  background: rgb(77 107 255 / 0.32);
+  background: rgb(30 77 58 / 0.18);
 }
 
 html {
@@ -86,13 +86,19 @@ html {
   border-radius: 2px;
 }
 
-/* Headlines — Space Grotesk, tightened */
+/* Headlines — Newsreader serif, scholarly */
 h1,
 h2,
 h3,
 .font-display {
-  font-family: var(--font-display), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), ui-serif, Georgia, "Times New Roman", serif;
+  letter-spacing: -0.01em;
+}
+
+/* Scripture / pull-quotes: serif italic */
+.font-scripture {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-style: italic;
 }
 
 /* Editorial eyebrow label */
@@ -132,7 +138,7 @@ h3,
   background-size: 100% 1.5px;
 }
 
-/* Interactive card: lift + cobalt glow on hover */
+/* Interactive card: lift + soft evergreen shadow */
 .card-interactive {
   transition:
     transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -143,8 +149,8 @@ h3,
 .card-interactive:hover {
   transform: translateY(-3px);
   box-shadow:
-    0 1px 2px rgb(0 0 0 / 0.4),
-    0 14px 40px -16px rgb(77 107 255 / 0.45);
+    0 1px 2px rgb(26 23 20 / 0.05),
+    0 14px 38px -16px rgb(30 77 58 / 0.35);
 }
 
 .card-interactive:active {
@@ -179,7 +185,6 @@ h3,
   animation: pop 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Sheen sweep for arena cards */
 @keyframes sheen {
   0% { transform: translateX(-120%); }
   100% { transform: translateX(120%); }
