@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * The Contend mark: a shield bearing a cross whose lower beam is drawn to
+ * The Witness Ready mark: a shield bearing a cross whose lower beam is drawn to
  * a sword point — defend the faith. Geometric, two-tone, scales cleanly.
  */
 export function LogoMark({
@@ -53,7 +53,7 @@ export function Logo({
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <LogoMark className={markClassName} cross={cross} />
       <span className="font-display text-xl font-semibold tracking-tight">
-        Contend
+        Witness Ready
       </span>
     </span>
   );

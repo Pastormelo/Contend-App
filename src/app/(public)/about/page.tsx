@@ -3,9 +3,9 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 
 export const metadata = {
-  title: "Why Contend Exists",
+  title: "Why Witness Ready Exists",
   description:
-    "The philosophy behind Contend: why ordinary Christians need real apologetics training, and how a training method differs from a library.",
+    "The philosophy behind Witness Ready: why ordinary Christians need real apologetics training, and how a training method differs from a library.",
 };
 
 const AFFIRMATIONS = [
@@ -24,7 +24,7 @@ export default function AboutPage() {
       <main className="flex-1">
         <article className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-20">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent">
-            Why Contend exists
+            Why Witness Ready exists
           </p>
           <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
             The church is full of believers who freeze.
@@ -53,7 +53,7 @@ export default function AboutPage() {
               most Christians have never trained at all.
             </p>
             <p>
-              Contend is built on that distinction. It is not a library; it is
+              Witness Ready is built on that distinction. It is not a library; it is
               a gym. Every course runs the same circuit:{" "}
               <strong>learn</strong> the doctrine in plain language,{" "}
               <strong>memorize</strong> the verses and arguments until they
@@ -74,21 +74,20 @@ export default function AboutPage() {
               Winning the argument and losing the person is a loss.
             </p>
             <p>
-              The name comes from Jude, who wanted to write about a shared
-              salvation and found he had to write something more urgent
-              instead: <em>contend for the faith that was once for all
-              delivered to the saints</em>. The word he chose is an athlete&apos;s
-              word — agonize, strain, train. That is the invitation. Not to
-              become an academic. To become <em>useful</em> — to your kids,
-              your church, your neighbor, and the person God puts in front of
-              you next.
+              The name says the whole aim in two words. Jesus told his
+              followers, <em>you will be my witnesses</em> (Acts 1:8) — and
+              Peter told the church to be <em>always ready to make a defense to
+              anyone who asks</em> (1 Pet 3:15). Witness and ready. Not to
+              become an academic, but to become <em>useful</em> — prepared,
+              unafraid, and gracious — for your kids, your church, your
+              neighbor, and the person God puts in front of you next.
             </p>
           </div>
 
           <section id="affirms" className="mt-16 scroll-mt-24">
             <div className="rounded-card border border-line-soft bg-foreground/[0.02] p-7">
               <h2 className="font-display text-xl font-semibold tracking-tight">
-                What Contend affirms
+                What Witness Ready affirms
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                 Every lesson, drill, and coached review on this platform is

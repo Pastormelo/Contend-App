@@ -37,7 +37,7 @@ export function AppHeader({
             className="flex items-center gap-2 font-display text-lg font-semibold tracking-tight"
           >
             <LogoMark className="h-7 text-accent" />
-            Contend
+            Witness Ready
           </Link>
           <nav className="hidden items-center gap-6 sm:flex">
             {NAV.map((item) => (

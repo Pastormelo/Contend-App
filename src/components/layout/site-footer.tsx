@@ -14,8 +14,7 @@ export function SiteFooter() {
             and grace — always ready to give an answer.
           </p>
           <p className="mt-4 font-display text-sm italic text-ink-soft">
-            “…contend for the faith that was once for all delivered to the
-            saints.” — Jude 3
+            “…you will be my witnesses… to the end of the earth.” — Acts 1:8
           </p>
         </div>
         <div>
@@ -23,10 +22,10 @@ export function SiteFooter() {
             Explore
           </p>
           <ul className="mt-4 flex flex-col gap-2.5 text-sm">
-            <li><Link href="/about" className="text-ink-soft transition-colors hover:text-ink">Why Contend exists</Link></li>
+            <li><Link href="/about" className="text-ink-soft transition-colors hover:text-ink">Why Witness Ready exists</Link></li>
             <li><Link href="/training" className="text-ink-soft transition-colors hover:text-ink">The training catalog</Link></li>
             <li><Link href="/how-it-works" className="text-ink-soft transition-colors hover:text-ink">How training works</Link></li>
-            <li><Link href="/about#affirms" className="text-ink-soft transition-colors hover:text-ink">What Contend affirms</Link></li>
+            <li><Link href="/about#affirms" className="text-ink-soft transition-colors hover:text-ink">What Witness Ready affirms</Link></li>
           </ul>
         </div>
         <div>
@@ -40,7 +39,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-line-soft py-5 text-center text-xs text-ink-soft">
-        © {new Date().getFullYear()} Contend · Scripture quotations are from the ESV® Bible, used by permission.
+        © {new Date().getFullYear()} Witness Ready · Scripture quotations are from the ESV® Bible, used by permission.
       </div>
     </footer>
   );

@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Contend", template: "%s · Contend" },
+  title: { default: "Witness Ready", template: "%s · Witness Ready" },
   description:
     "Train to defend the faith. Learn the doctrine, memorize the case, spar under pressure.",
 };

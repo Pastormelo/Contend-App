@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 export const metadata = {
   title: "How Training Works",
   description:
-    "The Contend method: lessons, spaced-repetition memory, timed drills, sparring simulations, honest coaching, XP, streaks, and levels — explained.",
+    "The Witness Ready method: lessons, spaced-repetition memory, timed drills, sparring simulations, honest coaching, XP, streaks, and levels — explained.",
 };
 
 const LOOP = [
@@ -49,7 +49,7 @@ export default function HowItWorksPage() {
           </h1>
           <p className="mt-5 text-base leading-relaxed text-ink-soft">
             Reading about apologetics makes you informed. Training makes you
-            ready. Every Contend course runs the same four-part circuit, and
+            ready. Every Witness Ready course runs the same four-part circuit, and
             everything you do is measured — honestly.
           </p>
 

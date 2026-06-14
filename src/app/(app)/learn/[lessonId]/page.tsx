@@ -48,7 +48,7 @@ export default async function LessonPage({
   const levelInfo = (ctx?.modules as unknown as {
     levels: { number: number; tracks: { title: string; slug: string } | null } | null;
   } | null)?.levels;
-  const trackTitle = levelInfo?.tracks?.title ?? "Contend";
+  const trackTitle = levelInfo?.tracks?.title ?? "Witness Ready";
   const trackSlug = levelInfo?.tracks?.slug;
   const levelNumber = levelInfo?.number ?? 1;
 

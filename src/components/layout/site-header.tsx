@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/layout/logo";
 
 const NAV = [
-  { href: "/about", label: "Why Contend" },
+  { href: "/about", label: "About" },
   { href: "/training", label: "The Training" },
   { href: "/how-it-works", label: "How It Works" },
 ];

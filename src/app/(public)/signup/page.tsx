@@ -55,7 +55,7 @@ export default function SignupPage() {
   return (
     <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center px-6 py-16">
       <Link href="/" className="font-display text-xl font-semibold tracking-tight">
-        Contend
+        Witness Ready
       </Link>
       <h1 className="mt-8 font-display text-2xl font-semibold tracking-tight">
         Create your account
