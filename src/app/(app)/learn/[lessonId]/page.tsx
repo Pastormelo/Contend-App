@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { BlockRenderer } from "@/components/lesson/block-renderer";
 import { LessonProgressRail } from "@/components/lesson/lesson-progress-rail";
 import { LessonCompleteCTA } from "@/components/lesson/lesson-complete-cta";
+import { LessonGroupDiscussion } from "@/components/social/lesson-group-discussion";
 import type { GlossaryEntry } from "@/components/lesson/term-callout";
 import type { CitationInfo } from "@/components/lesson/citation-card";
 import { z } from "zod";
@@ -40,14 +41,15 @@ export default async function LessonPage({
   // Course/level context for the header (which track does this lesson belong to?)
   const { data: ctx } = await supabase
     .from("module_lessons")
-    .select("modules(levels(number, tracks(title)))")
+    .select("modules(levels(number, tracks(title, slug)))")
     .eq("lesson_id", lessonId)
     .limit(1)
     .maybeSingle();
   const levelInfo = (ctx?.modules as unknown as {
-    levels: { number: number; tracks: { title: string } | null } | null;
+    levels: { number: number; tracks: { title: string; slug: string } | null } | null;
   } | null)?.levels;
   const trackTitle = levelInfo?.tracks?.title ?? "Contend";
+  const trackSlug = levelInfo?.tracks?.slug;
   const levelNumber = levelInfo?.number ?? 1;
 
   const { data: citationRows } = await supabase
@@ -125,6 +127,8 @@ export default async function LessonPage({
         </article>
 
         <LessonCompleteCTA lessonId={lesson.id} />
+
+        <LessonGroupDiscussion lessonId={lesson.id} trackSlug={trackSlug} />
       </main>
     </>
   );

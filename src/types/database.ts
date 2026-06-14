@@ -9,6 +9,126 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      friendships: {
+        Row: {
+          id: string
+          requester_id: string
+          addressee_id: string
+          status: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          requester_id: string
+          addressee_id: string
+          status?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          requester_id?: string
+          addressee_id?: string
+          status?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      game_scores: {
+        Row: {
+          user_id: string
+          game: string
+          best_score: number
+          best_at: string
+        }
+        Insert: {
+          user_id: string
+          game: string
+          best_score?: number
+          best_at?: string
+        }
+        Update: {
+          user_id?: string
+          game?: string
+          best_score?: number
+          best_at?: string
+        }
+        Relationships: []
+      }
+      study_groups: {
+        Row: {
+          id: string
+          name: string
+          track_slug: string | null
+          invite_code: string
+          owner_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          track_slug?: string | null
+          invite_code: string
+          owner_id: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          track_slug?: string | null
+          invite_code?: string
+          owner_id?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      group_members: {
+        Row: {
+          group_id: string
+          user_id: string
+          role: string
+          joined_at: string
+        }
+        Insert: {
+          group_id: string
+          user_id: string
+          role?: string
+          joined_at?: string
+        }
+        Update: {
+          group_id?: string
+          user_id?: string
+          role?: string
+          joined_at?: string
+        }
+        Relationships: []
+      }
+      group_messages: {
+        Row: {
+          id: string
+          group_id: string
+          lesson_id: string | null
+          user_id: string
+          body: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          group_id: string
+          lesson_id?: string | null
+          user_id: string
+          body: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          group_id?: string
+          lesson_id?: string | null
+          user_id?: string
+          body?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
       ai_drafts: {
         Row: {
           id: string

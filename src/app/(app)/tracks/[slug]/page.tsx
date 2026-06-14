@@ -7,7 +7,6 @@ import {
   CHECKPOINT_QUIZ_ID,
   completedSlugs,
   isUnlocked,
-  missingPrereqs,
   course,
   type CourseSlug,
 } from "@/lib/courses";

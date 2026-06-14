@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { getSubject } from "@/lib/site-content";
 import {
   COURSES,
-  CHECKPOINT_QUIZ_ID,
   completedSlugs,
   isUnlocked,
   missingPrereqs,

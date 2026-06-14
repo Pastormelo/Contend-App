@@ -107,6 +107,12 @@ export function Gauntlet() {
 
   async function finish(won: boolean) {
     setPhase(won ? "won" : "over");
+    // Record the score for the leaderboard (best is kept server-side).
+    fetch("/api/games/score", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ game: "gauntlet", score }),
+    }).catch(() => {});
     if (won) {
       try {
         const res = await fetch("/api/games/complete", {

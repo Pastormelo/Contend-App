@@ -12,6 +12,7 @@ const NAV = [
   { href: "/review", label: "Review" },
   { href: "/spar", label: "Spar" },
   { href: "/games", label: "Games" },
+  { href: "/groups", label: "Groups" },
 ];
 
 export function AppHeader({
@@ -130,6 +131,18 @@ export function AppHeader({
                   className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
                 >
                   Account &amp; progress
+                </Link>
+                <Link
+                  href="/leaderboard"
+                  className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
+                >
+                  Leaderboard
+                </Link>
+                <Link
+                  href="/friends"
+                  className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-line-soft/50"
+                >
+                  Friends
                 </Link>
                 <Link
                   href="/how-it-works"

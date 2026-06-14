@@ -70,6 +70,36 @@ export default function GamesPage() {
             </Link>
           ))}
         </div>
+
+        <section className="mt-12 border-t border-line-soft pt-8">
+          <h2 className="font-display text-lg font-semibold tracking-tight">
+            Compete
+          </h2>
+          <p className="mt-1 text-sm text-muted-fg">
+            Your best Gauntlet run ranks you. Add friends and turn your group
+            into a competition.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/leaderboard"
+              className="card-interactive flex items-center justify-between rounded-card border border-line-soft bg-surface p-5 hover:border-gold/40"
+            >
+              <span className="font-display text-base font-semibold tracking-tight">
+                Leaderboard
+              </span>
+              <span className="font-display text-xl text-gold" aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/friends"
+              className="card-interactive flex items-center justify-between rounded-card border border-line-soft bg-surface p-5 hover:border-gold/40"
+            >
+              <span className="font-display text-base font-semibold tracking-tight">
+                Friends
+              </span>
+              <span className="font-display text-xl text-gold" aria-hidden>→</span>
+            </Link>
+          </div>
+        </section>
       </main>
     </div>
   );
