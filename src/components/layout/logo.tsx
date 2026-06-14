@@ -1,60 +1,42 @@
 import { cn } from "@/lib/utils";
 
 /**
- * The Witness Ready mark: a shield bearing a cross whose lower beam is drawn to
- * a sword point — defend the faith. Geometric, two-tone, scales cleanly.
+ * Witness Ready is a wordmark-led brand: "Witness" in ink, "Ready" in the
+ * oxblood accent, set in Fraunces. The monogram below is only for square
+ * slots (favicon, tight icons) where a wordmark won't fit.
  */
-export function LogoMark({
+export function Logo({
   className,
-  cross = "var(--background)",
+  onDark = false,
 }: {
   className?: string;
-  /** Color of the cross cut-out (defaults to page background) */
-  cross?: string;
+  /** Use the light wordmark tone on dark surfaces. */
+  onDark?: boolean;
 }) {
   return (
-    <svg
-      viewBox="0 0 48 56"
-      className={cn("h-8 w-auto", className)}
-      aria-hidden
-      fill="none"
+    <span
+      className={cn(
+        "font-display font-semibold tracking-tight",
+        className,
+      )}
     >
-      {/* Shield */}
-      <path
-        d="M24 1.5 45 9.5v17.3c0 13.4-8.6 22.1-21 27.7C11.6 48.9 3 40.2 3 26.8V9.5L24 1.5Z"
-        fill="currentColor"
-      />
-      {/* Inner hairline */}
-      <path
-        d="M24 5.6 41.2 12.2v14.6c0 11.2-7 18.6-17.2 23.5C13.8 45.4 6.8 38 6.8 26.8V12.2L24 5.6Z"
-        stroke={cross}
-        strokeOpacity="0.35"
-        strokeWidth="1"
-      />
-      {/* Cross-sword */}
-      <path
-        d="M21.6 13h4.8v6.2h6.8v4.6h-6.8v14.4L24 43.6l-2.4-5.4V23.8h-6.8v-4.6h6.8V13Z"
-        fill={cross}
-      />
-    </svg>
+      <span className={onDark ? "text-paper" : "text-foreground"}>Witness</span>
+      <span className="text-accent"> Ready</span>
+    </span>
   );
 }
 
-export function Logo({
-  className,
-  markClassName,
-  cross,
-}: {
-  className?: string;
-  markClassName?: string;
-  cross?: string;
-}) {
+/** Square "WR" monogram for favicons and tight icon slots. */
+export function LogoMark({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <LogoMark className={markClassName} cross={cross} />
-      <span className="font-display text-xl font-semibold tracking-tight">
-        Witness Ready
-      </span>
+    <span
+      aria-hidden
+      className={cn(
+        "inline-flex h-8 w-8 items-center justify-center rounded-md bg-accent font-display text-sm font-semibold leading-none text-white",
+        className,
+      )}
+    >
+      WR
     </span>
   );
 }

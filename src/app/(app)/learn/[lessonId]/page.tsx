@@ -113,7 +113,7 @@ export default async function LessonPage({
           </p>
         </header>
 
-        <ReadAloud segments={readableSegments} />
+        <ReadAloud segments={readableSegments} lessonId={lesson.id} />
 
         <article className="mt-4">
           {blocks.map((block, i) => {
