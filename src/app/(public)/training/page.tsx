@@ -2,16 +2,20 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SUBJECTS } from "@/lib/site-content";
+import { course, formatCourseNumber } from "@/lib/courses";
 
 export const metadata = {
   title: "The Training Catalog",
   description:
-    "Nine courses across doctrine and engagement: the Trinity, the deity of Christ, the resurrection, Jehovah's Witnesses, Islam, Mormonism, and more.",
+    "Ten courses on a numbered path — from the existence of God and the Trinity to engaging Roman Catholicism, Islam, Mormonism, and more. Each course builds on the last.",
 };
 
+const byNumber = (a: (typeof SUBJECTS)[number], b: (typeof SUBJECTS)[number]) =>
+  (course(a.slug)?.number ?? 99) - (course(b.slug)?.number ?? 99);
+
 export default function TrainingCatalogPage() {
-  const doctrine = SUBJECTS.filter((s) => s.kind === "doctrine");
-  const engagement = SUBJECTS.filter((s) => s.kind === "engagement");
+  const doctrine = SUBJECTS.filter((s) => s.kind === "doctrine").sort(byNumber);
+  const engagement = SUBJECTS.filter((s) => s.kind === "engagement").sort(byNumber);
 
   return (
     <div className="flex min-h-full flex-col">
@@ -22,20 +26,21 @@ export default function TrainingCatalogPage() {
             The training
           </p>
           <h1 className="mt-4 max-w-2xl font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
-            Nine fronts. Every one of them is already at your door.
+            Ten courses. One path. Each builds on the last.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-soft">
-            Contend courses come in two kinds.{" "}
-            <strong className="text-ink">Doctrine courses</strong> build the
+            The path is numbered for a reason.{" "}
+            <strong className="text-ink">Foundations (1–5)</strong> build the
             positive case — what Scripture teaches and why it holds.{" "}
-            <strong className="text-ink">Engagement courses</strong> train you
-            for a specific conversation — a worldview, its people, and its
-            playbook. Each article below is a preview of what the full course
-            trains into you. Read them free; pick your first fight; train.
+            <strong className="text-ink">Engagements (6–10)</strong> apply that
+            case to a specific worldview, and each one requires the doctrine it
+            leans on: you don&apos;t engage Islam before you can defend the
+            deity of Christ. Each article below previews a course. Read them
+            free; start where you&apos;re ready.
           </p>
 
           <h2 className="mt-14 flex items-center gap-3 font-display text-xl font-semibold tracking-tight">
-            Doctrine
+            Foundations
             <span className="h-px flex-1 bg-line-soft" />
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -45,7 +50,7 @@ export default function TrainingCatalogPage() {
           </div>
 
           <h2 className="mt-14 flex items-center gap-3 font-display text-xl font-semibold tracking-tight">
-            Engagement
+            Engagements
             <span className="h-px flex-1 bg-line-soft" />
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -55,11 +60,12 @@ export default function TrainingCatalogPage() {
           </div>
 
           <p className="mt-14 rounded-card border border-line-soft bg-foreground/[0.02] p-6 text-sm leading-relaxed text-ink-soft">
-            <strong className="text-ink">How courses unlock:</strong> pick any
-            open course as your first. Finish it — lessons, memory work, and
-            sparring — and you choose your next one. There is no fixed order;
-            there is only finished and unfinished. Courses you complete stay
-            open to you forever for review.
+            <strong className="text-ink">How the path unlocks:</strong> begin
+            with any foundation that has no prerequisite. Complete a course —
+            its lessons, memory work, and checkpoint — and the courses that
+            depend on it open up. Engagements stay locked until you can defend
+            the doctrine underneath them. Courses you finish stay open forever
+            for review.
           </p>
         </div>
       </main>
@@ -80,7 +86,8 @@ function SubjectCard({
     >
       <div className="flex items-center justify-between">
         <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink-soft">
-          {s.kind === "doctrine" ? "Doctrine" : "Engagement"}
+          Course {formatCourseNumber(course(s.slug)?.number ?? 0)} ·{" "}
+          {s.kind === "doctrine" ? "Foundation" : "Engagement"}
         </span>
         {s.status === "live" ? (
           <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-[0.6875rem] font-semibold text-accent">

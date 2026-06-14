@@ -37,6 +37,19 @@ export default async function LessonPage({
 
   if (!lesson || !blocks?.length) notFound();
 
+  // Course/level context for the header (which track does this lesson belong to?)
+  const { data: ctx } = await supabase
+    .from("module_lessons")
+    .select("modules(levels(number, tracks(title)))")
+    .eq("lesson_id", lessonId)
+    .limit(1)
+    .maybeSingle();
+  const levelInfo = (ctx?.modules as unknown as {
+    levels: { number: number; tracks: { title: string } | null } | null;
+  } | null)?.levels;
+  const trackTitle = levelInfo?.tracks?.title ?? "Contend";
+  const levelNumber = levelInfo?.number ?? 1;
+
   const { data: citationRows } = await supabase
     .from("citations")
     .select(
@@ -76,7 +89,7 @@ export default async function LessonPage({
       <main className="mx-auto w-full max-w-[68ch] px-5 py-12 sm:px-6">
         <header className="border-b border-line-soft pb-8">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            The Trinity · Level 1
+            {trackTitle} · Level {levelNumber}
           </p>
           <h1 className="mt-3 font-display text-[clamp(1.875rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight">
             {lesson.title}

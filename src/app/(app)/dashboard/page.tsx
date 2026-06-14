@@ -58,6 +58,13 @@ export default async function DashboardPage() {
       .limit(6),
   ]);
 
+  const { data: intake } = await supabase
+    .from("intake_attempts")
+    .select("id")
+    .eq("user_id", user.id)
+    .limit(1);
+  const hasPlacement = (intake?.length ?? 0) > 0;
+
   const firstName = (profile?.name ?? "Defender").split(" ")[0];
   const lessonRead = (lessonXp?.length ?? 0) > 0;
   const quizPassed = (passedAttempt?.length ?? 0) > 0;
@@ -79,6 +86,24 @@ export default async function DashboardPage() {
       <p className="mt-2 text-sm text-muted-fg">
         Ten focused minutes. Here&apos;s today&apos;s training.
       </p>
+
+      {!hasPlacement && (
+        <Link
+          href="/assessment"
+          className="card-interactive mt-8 flex items-center justify-between gap-4 rounded-card border border-accent/30 bg-accent/[0.04] p-5 hover:border-accent/50"
+        >
+          <span>
+            <span className="block font-display text-lg font-semibold tracking-tight">
+              Not sure where to start?
+            </span>
+            <span className="mt-1 block text-sm leading-relaxed text-muted-fg">
+              Take the 5-minute placement assessment — we&apos;ll read your
+              footing and point you to the right course on the path.
+            </span>
+          </span>
+          <span className="shrink-0 font-display text-xl text-accent" aria-hidden>→</span>
+        </Link>
+      )}
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         {/* Review queue */}

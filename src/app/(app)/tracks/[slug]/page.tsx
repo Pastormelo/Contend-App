@@ -1,8 +1,16 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { LevelLadder } from "@/components/progress/level-ladder";
 import { Badge } from "@/components/ui/badge";
+import {
+  CHECKPOINT_QUIZ_ID,
+  completedSlugs,
+  isUnlocked,
+  missingPrereqs,
+  course,
+  type CourseSlug,
+} from "@/lib/courses";
 
 export default async function TrackPage({
   params,
@@ -32,11 +40,18 @@ export default async function TrackPage({
       .order("number"),
     supabase
       .from("quiz_attempts")
-      .select("id")
+      .select("quiz_id")
       .eq("user_id", user.id)
-      .eq("passed", true)
-      .limit(1),
+      .eq("passed", true),
   ]);
+
+  // Enforce the prerequisite gate on direct navigation, too.
+  const completed = completedSlugs((passedAttempts ?? []).map((p) => p.quiz_id as string));
+  const node = course(slug);
+  if (node && !isUnlocked(slug as CourseSlug, completed)) {
+    redirect("/tracks");
+  }
+  const courseDone = !!CHECKPOINT_QUIZ_ID[slug as CourseSlug] && completed.has(slug as CourseSlug);
 
   const activeLevel = (levels ?? []).find((l) => l.status === "live");
 
@@ -50,13 +65,47 @@ export default async function TrackPage({
         .order("sort")
     : { data: [] };
 
-  // Bibliography: every source cited by this track's lessons
-  const { data: sources } = await supabase
-    .from("sources")
-    .select("id, source_type, title, author, publisher, year")
-    .order("author");
+  // Bibliography: only the sources actually cited by this track's lessons
+  const lessonIds = (modules ?? []).flatMap((m) =>
+    (m.module_lessons ?? [])
+      .map((ml) => (ml.lessons as unknown as { id: string } | null)?.id)
+      .filter((id): id is string => Boolean(id)),
+  );
 
-  const lessonsComplete = passedAttempts && passedAttempts.length > 0 ? 1 : 0;
+  let sources: {
+    id: string;
+    source_type: string;
+    title: string;
+    author: string | null;
+    publisher: string | null;
+    year: number | null;
+  }[] = [];
+  if (lessonIds.length > 0) {
+    const { data: blocks } = await supabase
+      .from("lesson_blocks")
+      .select("id")
+      .in("lesson_id", lessonIds);
+    const blockIds = (blocks ?? []).map((b) => b.id);
+    if (blockIds.length > 0) {
+      const { data: citations } = await supabase
+        .from("citations")
+        .select("source_id")
+        .in("lesson_block_id", blockIds);
+      const sourceIds = Array.from(
+        new Set((citations ?? []).map((c) => c.source_id as string)),
+      );
+      if (sourceIds.length > 0) {
+        const { data: srcs } = await supabase
+          .from("sources")
+          .select("id, source_type, title, author, publisher, year")
+          .in("id", sourceIds)
+          .order("author");
+        sources = srcs ?? [];
+      }
+    }
+  }
+
+  const lessonsComplete = courseDone ? 1 : 0;
   const moduleCount = modules?.length ?? 1;
 
   return (

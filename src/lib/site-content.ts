@@ -225,6 +225,31 @@ export const SUBJECTS: SubjectPreview[] = [
       "Verse-chain proof-texting that moves faster than any one text can be examined",
     ],
   },
+  {
+    slug: "roman-catholicism",
+    title: "Roman Catholicism",
+    kind: "engagement",
+    status: "live",
+    tagline: "Same Bible, a second authority — where Rome and the gospel part.",
+    article: [
+      "Roman Catholicism is not a cult, and a faithful engagement has to start there. Catholics confess the Trinity, the deity of Christ, the virgin birth, the bodily resurrection — the creeds we share. That shared ground is exactly why the conversation is hard: the words are the same, the disagreements are real, and they sit precisely where the gospel itself is at stake. This is not a course about scoring points against your Catholic neighbor. It is about knowing, with charity and precision, where Rome adds to the finished work of Christ — and why that addition matters eternally.",
+      "The Reformation did not divide over trivia. It divided over two questions: where final authority lies, and how a sinner is made right with God. Rome answers the first with Scripture plus unwritten Tradition plus a teaching Magisterium that can bind the conscience infallibly; the Reformers answered sola scriptura — Scripture alone is the final, sufficient norm. Rome answers the second with grace infused through the sacraments and cooperated with by works, such that justification can be increased and lost; the Reformers answered sola fide — the sinner is declared righteous by faith alone, on the basis of Christ's righteousness credited to them, apart from works. Trent did not misunderstand the Reformers; it anathematized them, by name, in canons still on the books.",
+      "Around those two questions cluster the rest: the Mass as a re-presentation of Christ's once-for-all sacrifice (Heb 10 presses hard here), transubstantiation, purgatory and the treasury of merit that once funded indulgences (the spark of 1517), the papacy and apostolic succession, and the Marian dogmas that have grown for centuries — her Immaculate Conception (1854), her bodily Assumption (1950), and her popular titles Co-Redemptrix and Mediatrix. This course equips you to address each one from Scripture, to grant what is true, and to press the one question Rome's whole system struggles to answer: is the work of Christ finished, or not?",
+    ],
+    equipped: [
+      "State sola scriptura and sola fide clearly, and defend them from Scripture",
+      "Answer the Mass and transubstantiation from Hebrews 7–10 (“once for all”)",
+      "Engage the Marian dogmas — Immaculate Conception, Assumption, Co-Redemptrix — graciously and biblically",
+      "Explain purgatory, indulgences, and the treasury of merit, and why Luther objected",
+      "Distinguish what Rome gets right from where it adds to the finished work of Christ",
+    ],
+    watchFor: [
+      "Treating Catholics as unbelievers to be defeated rather than neighbors to be won — most have never heard the gospel of grace clearly",
+      "Sliding definitions: “grace”, “faith”, “justification”, “tradition” do not mean what they mean to you",
+      "Caricaturing the Marian dogmas instead of engaging what Rome actually teaches — know the four dogmas before you critique them",
+      "Winning sola scriptura and never reaching the heart of it: how a sinner stands before God",
+    ],
+  },
 ];
 
 export function getSubject(slug: string): SubjectPreview | undefined {

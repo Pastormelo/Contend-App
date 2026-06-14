@@ -10,6 +10,10 @@ const PROTECTED_PREFIXES = [
   "/spar",
   "/account",
   "/games",
+  "/groups",
+  "/leaderboard",
+  "/friends",
+  "/assessment",
   "/admin",
 ];
 

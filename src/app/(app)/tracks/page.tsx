@@ -1,9 +1,19 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
-import { LevelInsignia } from "@/components/progress/level-insignia";
 import { Progress } from "@/components/ui/progress";
 import { getSubject } from "@/lib/site-content";
+import {
+  COURSES,
+  CHECKPOINT_QUIZ_ID,
+  completedSlugs,
+  isUnlocked,
+  missingPrereqs,
+  formatCourseNumber,
+  type CourseSlug,
+} from "@/lib/courses";
+
+export const metadata = { title: "Courses" };
 
 export default async function TracksPage() {
   const supabase = await createClient();
@@ -12,113 +22,141 @@ export default async function TracksPage() {
   } = await supabase.auth.getUser();
   if (!user) return null;
 
-  const [{ data: tracks }, { data: quizPassed }, { data: lessonRead }] =
-    await Promise.all([
-      supabase.from("tracks").select("*").order("sort"),
-      supabase
-        .from("quiz_attempts")
-        .select("id")
-        .eq("user_id", user.id)
-        .eq("passed", true)
-        .limit(1),
-      supabase
-        .from("xp_events")
-        .select("id")
-        .eq("user_id", user.id)
-        .eq("reason", "lesson_complete")
-        .limit(1),
-    ]);
+  const { data: passed } = await supabase
+    .from("quiz_attempts")
+    .select("quiz_id")
+    .eq("user_id", user.id)
+    .eq("passed", true);
 
-  const completedAny = Boolean(quizPassed && quizPassed.length > 0);
-  const trinityProgress = completedAny
-    ? 100
-    : lessonRead && lessonRead.length > 0
-      ? 50
-      : 0;
+  const completed = completedSlugs((passed ?? []).map((p) => p.quiz_id as string));
+
+  // Did the user start (read) the Trinity lesson? (for in-progress state)
+  const { data: started } = await supabase
+    .from("xp_events")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("reason", "lesson_complete")
+    .limit(1);
+  const hasStarted = (started?.length ?? 0) > 0;
+
+  const foundations = COURSES.filter((c) => c.tier === "Foundations");
+  const engagements = COURSES.filter((c) => c.tier === "Engagements");
 
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-fg">
-        Your training
+        Your training path
       </p>
       <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight">
         Courses
       </h1>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-fg">
-        Pick a course and train it to the end — finishing one is what unlocks
-        your next choice. There is no fixed order, only finished and
-        unfinished. Courses you complete stay open to you forever.
+        The path is numbered for a reason — each course assumes what came
+        before it. Foundations build the case; engagements apply it to a
+        worldview. A course unlocks once you&apos;ve completed everything it
+        depends on. Finished courses stay open for review forever.
       </p>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {(tracks ?? []).map((track) => {
-          const subject = getSubject(track.slug);
+      <CourseSection
+        label="Foundations"
+        blurb="The positive case — what Scripture teaches and why it holds."
+        courses={foundations}
+        completed={completed}
+        hasStarted={hasStarted}
+      />
+      <CourseSection
+        label="Engagements"
+        blurb="Apply the foundations to a specific worldview and its playbook."
+        courses={engagements}
+        completed={completed}
+        hasStarted={hasStarted}
+      />
+    </main>
+  );
+}
 
-          if (track.status === "live") {
-            return (
-              <Link
-                key={track.id}
-                href={`/tracks/${track.slug}`}
-                className="group rounded-card border border-line-soft bg-surface p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-md"
-              >
-                <div className="flex items-start justify-between">
-                  <LevelInsignia level={1} earned />
-                  <Badge variant="accent">
-                    {completedAny ? "Completed" : "Open"}
-                  </Badge>
-                </div>
-                <h2 className="mt-4 font-display text-lg font-semibold tracking-tight group-hover:text-accent">
-                  {track.title}
-                </h2>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-fg">
-                  {subject?.tagline}
-                </p>
-                <Progress value={trinityProgress} className="mt-4" />
-                <p className="mt-2 text-xs text-muted-fg">
-                  {completedAny
-                    ? "Level 1 complete — review anytime"
-                    : trinityProgress > 0
-                      ? "In progress — Level 1 · Beginner"
-                      : "Not started — Level 1 · Beginner"}
-                </p>
-              </Link>
-            );
-          }
+function CourseSection({
+  label,
+  blurb,
+  courses,
+  completed,
+  hasStarted,
+}: {
+  label: string;
+  blurb: string;
+  courses: typeof COURSES;
+  completed: Set<CourseSlug>;
+  hasStarted: boolean;
+}) {
+  return (
+    <section className="mt-12">
+      <h2 className="flex items-center gap-3 font-display text-xl font-semibold tracking-tight">
+        {label}
+        <span className="h-px flex-1 bg-line-soft" />
+      </h2>
+      <p className="mt-1 text-sm text-muted-fg">{blurb}</p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {courses.map((c) => {
+          const subject = getSubject(c.slug);
+          const unlocked = isUnlocked(c.slug, completed);
+          const done = completed.has(c.slug);
+          const playable = c.hasContent && unlocked;
+          const missing = missingPrereqs(c.slug, completed);
 
-          if (track.status === "locked") {
-            return (
-              <div
-                key={track.id}
-                className="rounded-card border border-line-soft bg-surface p-5"
+          const inner = (
+            <>
+              <div className="flex items-start justify-between">
+                <span className="font-display text-sm font-semibold text-accent">
+                  {formatCourseNumber(c.number)}
+                </span>
+                {done ? (
+                  <Badge variant="accent">Completed</Badge>
+                ) : !c.hasContent ? (
+                  <Badge variant="muted">In production</Badge>
+                ) : !unlocked ? (
+                  <LockBadge />
+                ) : (
+                  <Badge variant="accent">Open</Badge>
+                )}
+              </div>
+              <h3
+                className={
+                  "mt-3 font-display text-lg font-semibold tracking-tight " +
+                  (playable ? "group-hover:text-accent" : "text-muted-fg")
+                }
               >
-                <div className="flex items-start justify-between">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-7 w-7 text-muted-fg"
-                    fill="currentColor"
-                    aria-hidden
-                  >
-                    <path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5Zm-3 5a3 3 0 1 1 6 0v3H9V6Z" />
-                  </svg>
-                  <Badge variant="muted">
-                    {completedAny ? "Up next" : "Locked"}
-                  </Badge>
-                </div>
-                <h2 className="mt-4 font-display text-lg font-semibold tracking-tight">
-                  {track.title}
-                </h2>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-fg">
-                  {subject?.tagline}
-                </p>
+                {c.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-fg">
+                {subject?.tagline}
+              </p>
+
+              {playable ? (
+                <>
+                  <Progress
+                    value={done ? 100 : hasStarted && c.slug === "trinity" ? 50 : 0}
+                    className="mt-4"
+                  />
+                  <p className="mt-2 text-xs text-muted-fg">
+                    {done
+                      ? "Complete — review anytime"
+                      : hasStarted && c.slug === "trinity"
+                        ? "In progress"
+                        : "Ready to begin"}
+                  </p>
+                </>
+              ) : (
                 <p className="mt-3 border-t border-line-soft pt-3 text-xs leading-relaxed text-muted-fg">
-                  {completedAny
-                    ? "You've earned the choice — this course opens with the next release."
-                    : "Finish a course to unlock your next choice."}
+                  {!c.hasContent
+                    ? "Content in production."
+                    : missing.length > 0
+                      ? `Unlocks after: ${missing.map((m) => `${formatCourseNumber(m.number)} ${m.title}`).join(", ")}.`
+                      : "Locked."}
                   {subject && (
                     <>
                       {" "}
                       <Link
-                        href={`/training/${track.slug}`}
+                        href={`/training/${c.slug}`}
                         className="font-medium text-accent hover:text-accent-deep"
                       >
                         Read the preview →
@@ -126,36 +164,47 @@ export default async function TracksPage() {
                     </>
                   )}
                 </p>
-              </div>
+              )}
+            </>
+          );
+
+          if (playable) {
+            return (
+              <Link
+                key={c.slug}
+                href={`/tracks/${c.slug}`}
+                className="card-interactive group block rounded-card border border-line-soft bg-surface p-5 hover:border-accent/40"
+              >
+                {inner}
+              </Link>
             );
           }
-
           return (
             <div
-              key={track.id}
-              className="rounded-card border border-dashed border-line-strong/60 bg-transparent p-5"
+              key={c.slug}
+              className={
+                "rounded-card border p-5 " +
+                (c.hasContent
+                  ? "border-line-soft bg-surface"
+                  : "border-dashed border-line-strong/60 bg-transparent")
+              }
             >
-              <Badge variant="muted">In production</Badge>
-              <h2 className="mt-4 font-display text-lg font-semibold tracking-tight text-muted-fg">
-                {track.title}
-              </h2>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-fg">
-                {subject?.tagline ?? "In production."}
-              </p>
-              {subject && (
-                <p className="mt-3 text-xs">
-                  <Link
-                    href={`/training/${track.slug}`}
-                    className="font-medium text-accent hover:text-accent-deep"
-                  >
-                    Read the preview →
-                  </Link>
-                </p>
-              )}
+              {inner}
             </div>
           );
         })}
       </div>
-    </main>
+    </section>
+  );
+}
+
+function LockBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full border border-line-strong px-2.5 py-0.5 text-[0.6875rem] font-medium text-muted-fg">
+      <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden>
+        <path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5Zm-3 5a3 3 0 1 1 6 0v3H9V6Z" />
+      </svg>
+      Locked
+    </span>
   );
 }
