@@ -6,9 +6,7 @@ export function SiteFooter() {
     <footer className="border-t border-line-soft bg-foreground/[0.02]">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 sm:grid-cols-3 sm:px-10">
         <div>
-          <span className="text-accent">
-            <Logo />
-          </span>
+          <Logo />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-soft">
             Training Christians to defend the faith with clarity, conviction,
             and grace — always ready to give an answer.
@@ -22,10 +20,10 @@ export function SiteFooter() {
             Explore
           </p>
           <ul className="mt-4 flex flex-col gap-2.5 text-sm">
-            <li><Link href="/about" className="text-ink-soft transition-colors hover:text-ink">Why Witness Ready exists</Link></li>
-            <li><Link href="/training" className="text-ink-soft transition-colors hover:text-ink">The training catalog</Link></li>
-            <li><Link href="/how-it-works" className="text-ink-soft transition-colors hover:text-ink">How training works</Link></li>
-            <li><Link href="/about#affirms" className="text-ink-soft transition-colors hover:text-ink">What Witness Ready affirms</Link></li>
+            <li><Link href="/about" className="text-ink-soft transition-colors hover:text-foreground">Why Witness Ready exists</Link></li>
+            <li><Link href="/training" className="text-ink-soft transition-colors hover:text-foreground">The training catalog</Link></li>
+            <li><Link href="/how-it-works" className="text-ink-soft transition-colors hover:text-foreground">How training works</Link></li>
+            <li><Link href="/about#affirms" className="text-ink-soft transition-colors hover:text-foreground">What Witness Ready affirms</Link></li>
           </ul>
         </div>
         <div>
@@ -33,8 +31,8 @@ export function SiteFooter() {
             Begin
           </p>
           <ul className="mt-4 flex flex-col gap-2.5 text-sm">
-            <li><Link href="/signup" className="text-ink-soft transition-colors hover:text-ink">Create an account</Link></li>
-            <li><Link href="/login" className="text-ink-soft transition-colors hover:text-ink">Sign in</Link></li>
+            <li><Link href="/signup" className="text-ink-soft transition-colors hover:text-foreground">Create an account</Link></li>
+            <li><Link href="/login" className="text-ink-soft transition-colors hover:text-foreground">Sign in</Link></li>
           </ul>
         </div>
       </div>

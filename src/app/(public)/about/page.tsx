@@ -118,7 +118,7 @@ export default function AboutPage() {
             </Link>
             <Link
               href="/training"
-              className="text-sm font-medium text-ink-soft hover:text-ink"
+              className="text-sm font-medium text-ink-soft hover:text-foreground"
             >
               or read about the training first →
             </Link>

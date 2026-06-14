@@ -30,9 +30,9 @@ export default function TrainingCatalogPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-soft">
             The path is numbered for a reason.{" "}
-            <strong className="text-ink">Foundations (1–5)</strong> build the
+            <strong className="text-foreground">Foundations (1–5)</strong> build the
             positive case — what Scripture teaches and why it holds.{" "}
-            <strong className="text-ink">Engagements (6–10)</strong> apply that
+            <strong className="text-foreground">Engagements (6–10)</strong> apply that
             case to a specific worldview, and each one requires the doctrine it
             leans on: you don&apos;t engage Islam before you can defend the
             deity of Christ. Each article below previews a course. Read them
@@ -60,7 +60,7 @@ export default function TrainingCatalogPage() {
           </div>
 
           <p className="mt-14 rounded-card border border-line-soft bg-foreground/[0.02] p-6 text-sm leading-relaxed text-ink-soft">
-            <strong className="text-ink">How the path unlocks:</strong> begin
+            <strong className="text-foreground">How the path unlocks:</strong> begin
             with any foundation that has no prerequisite. Complete a course —
             its lessons, memory work, and checkpoint — and the courses that
             depend on it open up. Engagements stay locked until you can defend

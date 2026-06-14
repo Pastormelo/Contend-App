@@ -11,10 +11,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line-soft bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:px-10">
-        <Link
-          href="/"
-          className="text-accent transition-opacity hover:opacity-80"
-        >
+        <Link href="/" className="transition-opacity hover:opacity-80">
           <Logo />
         </Link>
         <nav className="hidden items-center gap-7 md:flex">
@@ -22,7 +19,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="link-underline text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-ink"
+              className="link-underline text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-foreground"
             >
               {item.label}
             </Link>
@@ -31,7 +28,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-5">
           <Link
             href="/login"
-            className="text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-ink"
+            className="text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-foreground"
           >
             Sign in
           </Link>

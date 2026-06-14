@@ -1,45 +1,50 @@
 @import "tailwindcss";
 
-/* ---------- Witness Ready design tokens (CLAUDE.md §13–15) ---------- */
+/* ---------- Witness Ready · "Contend" design system (dark-first) ---------- */
 
 @theme {
-  --color-paper: #f7f4ee;
-  --color-ink: #0b0b0e;
-  --color-ink-soft: #4a4a52;
-  --color-line: rgb(11 11 14 / 0.1);
-  /* Deepened oxblood — richer and more saturated than before */
-  --color-accent: #8a2329;
-  --color-accent-deep: #681a1f;
-  /* A brighter oxblood for accents/links on dark surfaces */
-  --color-accent-bright: #c85a5e;
-  --color-gold: #c2a253;
-  --color-focus-bg: #0e0e13;
-  --color-focus-card: #17171e;
+  /* Raw palette */
+  --color-canvas: #0b0b0f;
+  --color-paper: #ececf1; /* light tone — used as text on dark (text-paper) */
+  --color-ink: #0b0b0f; /* deep surface — used as bg-ink */
+  --color-ink-soft: #8a8a99; /* steel — used as muted text (text-ink-soft) */
+  --color-line: rgb(236 236 241 / 0.1);
 
-  --font-display: var(--font-fraunces);
+  /* Electric cobalt accent */
+  --color-accent: #4d6bff;
+  --color-accent-deep: #3b54e6;
+  --color-accent-bright: #8298ff;
+
+  /* Warm secondary (insignia, games, streak) */
+  --color-gold: #d9b65a;
+
+  --color-focus-bg: #08080b;
+  --color-focus-card: #131319;
+
+  --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-inter);
 
-  --radius-card: 12px;
+  --radius-card: 14px;
 }
 
-/* Semantic variables — study mode (paper) by default */
+/* Semantic variables — the whole app is dark */
 :root {
-  --background: var(--color-paper);
-  --foreground: var(--color-ink);
-  --muted: #4a4a52;
-  --surface: #ffffff;
-  --line-soft: rgb(14 14 16 / 0.1);
-  --line-strong: rgb(14 14 16 / 0.18);
+  --background: #0b0b0f;
+  --foreground: #ececf1;
+  --muted: #8a8a99;
+  --surface: #15151c;
+  --line-soft: rgb(236 236 241 / 0.08);
+  --line-strong: rgb(236 236 241 / 0.16);
 }
 
-/* Focus mode — review, respond, spar: the sparring ring */
+/* Focus mode — review, respond, spar, games: a deeper, flatter ring */
 [data-mode="focus"] {
-  --background: var(--color-focus-bg);
-  --foreground: #f2efe9;
-  --muted: #a8a5b0;
-  --surface: var(--color-focus-card);
-  --line-soft: rgb(242 239 233 / 0.12);
-  --line-strong: rgb(242 239 233 / 0.22);
+  --background: #08080b;
+  --foreground: #f4f4f8;
+  --muted: #9a9aa6;
+  --surface: #131319;
+  --line-soft: rgb(236 236 241 / 0.08);
+  --line-strong: rgb(236 236 241 / 0.18);
 }
 
 /* Map semantic variables into Tailwind utilities */
@@ -58,25 +63,17 @@ body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   transition: background-color 200ms ease-out;
+  /* Faint texture on dark */
+  background-image: radial-gradient(rgb(236 236 241 / 0.022) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
-/* Refinement details */
+body:has([data-mode="focus"]) {
+  background-image: none;
+}
+
 ::selection {
-  background: rgb(138 35 41 / 0.2);
-}
-
-/* Editorial detail: a thin eyebrow rule used beside section labels */
-.eyebrow {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-/* Subtle moving sheen for arena cards on hover */
-@keyframes sheen {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(120%); }
+  background: rgb(77 107 255 / 0.32);
 }
 
 html {
@@ -89,27 +86,25 @@ html {
   border-radius: 2px;
 }
 
-/* Subtle paper grain on study surfaces (focus mode stays flat) */
-body {
-  background-image: radial-gradient(rgb(14 14 16 / 0.02) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-
-body:has([data-mode="focus"]) {
-  background-image: none;
-}
-
+/* Headlines — Space Grotesk, tightened */
 h1,
 h2,
 h3,
 .font-display {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-family: var(--font-display), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Editorial eyebrow label */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 /* ---------- Motion system ---------- */
 
-/* Scroll reveal: elements start hidden, .is-visible animates them in.
-   Stagger siblings with --reveal-delay. */
 .reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -124,7 +119,6 @@ h3,
   transform: none;
 }
 
-/* Animated link underline */
 .link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1.5px;
@@ -138,7 +132,7 @@ h3,
   background-size: 100% 1.5px;
 }
 
-/* Interactive card: lift + deepen border on hover, settle on press */
+/* Interactive card: lift + cobalt glow on hover */
 .card-interactive {
   transition:
     transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -149,8 +143,8 @@ h3,
 .card-interactive:hover {
   transform: translateY(-3px);
   box-shadow:
-    0 1px 2px rgb(14 14 16 / 0.04),
-    0 8px 24px -8px rgb(14 14 16 / 0.16);
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 14px 40px -16px rgb(77 107 255 / 0.45);
 }
 
 .card-interactive:active {
@@ -158,13 +152,11 @@ h3,
   transition-duration: 80ms;
 }
 
-/* Gentle attention pulse for live elements (streak flame, due counts) */
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.06); }
 }
 
-/* Shake for wrong answers in games */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20% { transform: translateX(-6px); }
@@ -177,7 +169,6 @@ h3,
   animation: shake 320ms ease-in-out;
 }
 
-/* Pop-in for matched pairs / correct answers */
 @keyframes pop {
   0% { transform: scale(0.92); }
   55% { transform: scale(1.04); }
@@ -188,14 +179,17 @@ h3,
   animation: pop 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Sheen sweep for arena cards */
+@keyframes sheen {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
     transform: none;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {

@@ -6,9 +6,9 @@ type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "border border-transparent bg-accent text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.12),0_1px_2px_rgb(14_14_16/0.12)] hover:bg-accent-deep hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.1),0_4px_12px_-2px_rgb(122_46_46/0.45)]",
+    "border border-transparent bg-accent text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_6px_20px_-8px_rgb(77_107_255/0.7)] hover:bg-accent-deep hover:shadow-[inset_0_1px_0_rgb(255_255_255/0.18),0_10px_28px_-8px_rgb(77_107_255/0.85)]",
   outline:
-    "border border-line-strong bg-transparent text-foreground hover:border-accent/50 hover:bg-foreground/5",
+    "border border-line-strong bg-transparent text-foreground hover:border-accent/60 hover:bg-foreground/5",
   ghost: "border border-transparent text-foreground hover:bg-foreground/5",
 };
 
