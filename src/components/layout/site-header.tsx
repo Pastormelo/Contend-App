@@ -9,26 +9,16 @@ const NAV = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line-soft bg-background/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-foreground/15 bg-background/90 backdrop-blur">
+      {/* Masthead row */}
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:px-10">
         <Link href="/" className="transition-opacity hover:opacity-80">
           <Logo />
         </Link>
-        <nav className="hidden items-center gap-7 md:flex">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="link-underline text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
         <div className="flex items-center gap-5">
           <Link
             href="/login"
-            className="text-sm font-medium text-ink-soft transition-colors duration-150 hover:text-foreground"
+            className="text-sm font-medium text-muted-fg transition-colors duration-150 hover:text-foreground"
           >
             Sign in
           </Link>
@@ -40,16 +30,20 @@ export function SiteHeader() {
           </Link>
         </div>
       </div>
-      <nav className="flex items-center justify-center gap-6 border-t border-line-soft py-2.5 md:hidden">
-        {NAV.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="text-[0.8125rem] font-medium text-ink-soft"
-          >
-            {item.label}
-          </Link>
-        ))}
+
+      {/* Section bar (newsroom category nav) */}
+      <nav className="border-t border-line-soft">
+        <div className="mx-auto flex h-10 w-full max-w-6xl items-center justify-center gap-7 px-6 sm:justify-start sm:px-10">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-muted-fg transition-colors hover:text-accent"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
       </nav>
     </header>
   );

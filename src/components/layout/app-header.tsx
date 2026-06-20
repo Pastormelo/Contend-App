@@ -39,15 +39,15 @@ export function AppHeader({
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Close the mobile menu whenever the route changes.
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line-soft bg-background/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-foreground/15 bg-background/95 backdrop-blur">
+      {/* Masthead row */}
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4 sm:px-6">
-        <div className="flex items-center gap-3 sm:gap-8">
+        <div className="flex items-center gap-3">
           <button
             type="button"
             aria-label="Menu"
@@ -69,22 +69,6 @@ export function AppHeader({
           <Link href="/dashboard" aria-label="Witness Ready — dashboard">
             <Logo className="text-lg" />
           </Link>
-
-          <nav className="hidden items-center gap-6 sm:flex">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  pathname.startsWith(item.href)
-                    ? "text-sm font-medium text-foreground"
-                    : "text-sm font-medium text-muted-fg transition-colors hover:text-foreground"
-                }
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
         </div>
 
         <div className="flex items-center gap-4">
@@ -179,6 +163,32 @@ export function AppHeader({
           </Popover>
         </div>
       </div>
+
+      {/* Section bar (newsroom category nav) */}
+      <nav className="hidden border-t border-line-soft sm:block">
+        <div className="mx-auto flex h-10 w-full max-w-5xl items-center gap-7 px-6">
+          {NAV.map((item) => {
+            const active =
+              item.href === "/dashboard"
+                ? pathname === "/dashboard"
+                : pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  "relative text-[0.7rem] font-semibold uppercase tracking-[0.16em] transition-colors " +
+                  (active
+                    ? "text-accent after:absolute after:-bottom-[11px] after:left-0 after:h-[2px] after:w-full after:bg-accent after:content-['']"
+                    : "text-muted-fg hover:text-foreground")
+                }
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
 
       {/* Mobile slide-down menu */}
       {menuOpen && (
