@@ -105,7 +105,7 @@ export default function HowItWorksPage() {
             </h2>
             <div className="mt-4 flex flex-col gap-4 text-[0.9375rem] leading-relaxed text-ink-soft">
               <p>
-                <strong className="text-ink">Experience points (XP)</strong>{" "}
+                <strong className="text-foreground">Experience points (XP)</strong>{" "}
                 are the ledger of your training. Lessons earn 50, passed
                 quizzes 25, a cleared review queue 15 a day — and drills and
                 sparring pay out by performance, up to 100 and 250. A weak
@@ -114,13 +114,13 @@ export default function HowItWorksPage() {
                 means something.
               </p>
               <p>
-                <strong className="text-ink">Your streak</strong> (the flame)
+                <strong className="text-foreground">Your streak</strong> (the flame)
                 counts consecutive days with any completed training. Readiness
                 is a perishable skill — ten minutes daily beats two hours on
                 Saturday. Miss a day and the count starts over.
               </p>
               <p>
-                <strong className="text-ink">Levels</strong> mark what you are
+                <strong className="text-foreground">Levels</strong> mark what you are
                 equipped to do. Every course climbs the same ladder — from
                 Beginner (“can explain the claim in plain language”) through
                 Defender (“can hold a real conversation under pressure”) and
@@ -128,7 +128,7 @@ export default function HowItWorksPage() {
                 in assessment, not by showing up.
               </p>
               <p>
-                <strong className="text-ink">Courses unlock by finishing.</strong>{" "}
+                <strong className="text-foreground">Courses unlock by finishing.</strong>{" "}
                 Pick any open course first. Complete it, and you choose your
                 next one — no fixed order. Completed courses stay open
                 forever; their flashcards stay in your review queue so the

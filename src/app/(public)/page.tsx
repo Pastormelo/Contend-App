@@ -37,7 +37,7 @@ export default function LandingPage() {
         <section className="relative overflow-hidden bg-ink text-paper">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_30rem_at_15%_-15%,rgba(138,35,41,0.42),transparent_60%),radial-gradient(46rem_26rem_at_95%_120%,rgba(194,162,83,0.14),transparent_70%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_30rem_at_15%_-15%,rgba(30,77,58,0.42),transparent_60%),radial-gradient(46rem_26rem_at_95%_120%,rgba(176,141,62,0.14),transparent_70%)]"
           />
           <div
             aria-hidden
@@ -68,7 +68,7 @@ export default function LandingPage() {
               <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                 <Link
                   href="/signup"
-                  className="inline-flex h-13 items-center rounded-lg bg-accent px-8 py-3.5 text-base font-medium text-white shadow-[0_10px_30px_-8px_rgba(138,35,41,0.7)] transition-all duration-200 hover:bg-accent-deep hover:shadow-[0_12px_34px_-8px_rgba(138,35,41,0.9)] active:scale-[0.97]"
+                  className="inline-flex h-13 items-center rounded-lg bg-accent px-8 py-3.5 text-base font-medium text-white shadow-[0_10px_30px_-8px_rgba(30,77,58,0.7)] transition-all duration-200 hover:bg-accent-deep hover:shadow-[0_12px_34px_-8px_rgba(30,77,58,0.9)] active:scale-[0.97]"
                 >
                   Start training — it&apos;s free
                 </Link>
@@ -197,7 +197,7 @@ export default function LandingPage() {
         <section className="relative overflow-hidden border-t border-line-soft bg-ink text-paper">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(48rem_24rem_at_50%_130%,rgba(138,35,41,0.34),transparent_70%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(48rem_24rem_at_50%_130%,rgba(30,77,58,0.34),transparent_70%)]"
           />
           <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-6 py-24 text-center">
             <Reveal>
@@ -211,7 +211,7 @@ export default function LandingPage() {
               </p>
               <Link
                 href="/signup"
-                className="mt-9 inline-flex h-13 items-center rounded-lg bg-accent px-8 py-3.5 text-base font-medium text-white shadow-[0_10px_30px_-8px_rgba(138,35,41,0.7)] transition-all duration-200 hover:bg-accent-deep active:scale-[0.97]"
+                className="mt-9 inline-flex h-13 items-center rounded-lg bg-accent px-8 py-3.5 text-base font-medium text-white shadow-[0_10px_30px_-8px_rgba(30,77,58,0.7)] transition-all duration-200 hover:bg-accent-deep active:scale-[0.97]"
               >
                 Begin your first course
               </Link>

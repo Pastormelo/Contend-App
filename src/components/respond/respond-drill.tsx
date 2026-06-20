@@ -137,7 +137,7 @@ export function RespondDrill({ objection }: { objection: string }) {
           checked={timerOn}
           onChange={(e) => setTimerOn(e.target.checked)}
           disabled={started}
-          className="accent-[#7a2e2e]"
+          className="accent-accent"
         />
         90-second pressure timer
       </label>

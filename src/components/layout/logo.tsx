@@ -1,42 +1,63 @@
 import { cn } from "@/lib/utils";
 
+const BRASS = "#b08d3e";
+const EVERGREEN = "#1e4d3a";
+
 /**
- * Witness Ready is a wordmark-led brand: "Witness" in ink, "Ready" in the
- * oxblood accent, set in Fraunces. The monogram below is only for square
- * slots (favicon, tight icons) where a wordmark won't fit.
+ * The Witness Ready mark: an academic seal — a brass double-ring crest
+ * topped by a cross, with a serif "WR" at its center. Reads as a seminary.
  */
-export function Logo({
-  className,
-  onDark = false,
-}: {
-  className?: string;
-  /** Use the light wordmark tone on dark surfaces. */
-  onDark?: boolean;
-}) {
+export function LogoMark({ className }: { className?: string }) {
   return (
-    <span
-      className={cn(
-        "font-display font-semibold tracking-tight",
-        className,
-      )}
+    <svg
+      viewBox="0 0 48 48"
+      className={cn("h-8 w-8", className)}
+      role="img"
+      aria-label="Witness Ready"
     >
-      <span className={onDark ? "text-paper" : "text-foreground"}>Witness</span>
-      <span className="text-accent"> Ready</span>
-    </span>
+      {/* double ring */}
+      <circle cx="24" cy="24" r="22.2" fill="none" stroke={BRASS} strokeWidth="1.5" />
+      <circle cx="24" cy="24" r="18.4" fill="none" stroke={BRASS} strokeWidth="0.8" />
+      {/* cross at the crown */}
+      <path
+        d="M24 2.4 V8.4 M21.2 5 H26.8"
+        stroke={BRASS}
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+      {/* serif monogram */}
+      <text
+        x="24"
+        y="31"
+        textAnchor="middle"
+        fill={EVERGREEN}
+        style={{
+          fontFamily: "var(--font-newsreader), Georgia, 'Times New Roman', serif",
+          fontWeight: 600,
+          fontSize: "17px",
+          letterSpacing: "-0.5px",
+        }}
+      >
+        WR
+      </text>
+    </svg>
   );
 }
 
-/** Square "WR" monogram for favicons and tight icon slots. */
-export function LogoMark({ className }: { className?: string }) {
+/** Full lockup: seal + serif "Witness Ready" wordmark. */
+export function Logo({
+  className,
+  showMark = true,
+}: {
+  className?: string;
+  showMark?: boolean;
+}) {
   return (
-    <span
-      aria-hidden
-      className={cn(
-        "inline-flex h-8 w-8 items-center justify-center rounded-md bg-accent font-display text-sm font-semibold leading-none text-white",
-        className,
-      )}
-    >
-      WR
+    <span className={cn("inline-flex items-center gap-2.5", className)}>
+      {showMark && <LogoMark className="h-8 w-8" />}
+      <span className="font-display text-[1.2rem] font-semibold tracking-tight text-foreground">
+        Witness Ready
+      </span>
     </span>
   );
 }

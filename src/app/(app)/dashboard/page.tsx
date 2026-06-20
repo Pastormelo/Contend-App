@@ -107,7 +107,7 @@ export default async function DashboardPage() {
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         {/* Review queue */}
-        <section className="flex flex-col rounded-card border border-line-soft bg-surface p-6 transition-shadow hover:shadow-md">
+        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               Memory
@@ -140,7 +140,7 @@ export default async function DashboardPage() {
         </section>
 
         {/* Lesson */}
-        <section className="flex flex-col rounded-card border border-line-soft bg-surface p-6 transition-shadow hover:shadow-md">
+        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               Study
@@ -167,7 +167,7 @@ export default async function DashboardPage() {
         </section>
 
         {/* Drill */}
-        <section className="flex flex-col rounded-card border border-line-soft bg-surface p-6 transition-shadow hover:shadow-md">
+        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               Drill
@@ -192,7 +192,7 @@ export default async function DashboardPage() {
         </section>
 
         {/* Spar */}
-        <section className="flex flex-col rounded-card border border-line-soft bg-surface p-6 transition-shadow hover:shadow-md">
+        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
               Spar
