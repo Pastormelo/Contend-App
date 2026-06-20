@@ -7,6 +7,7 @@ import { LessonGroupDiscussion } from "@/components/social/lesson-group-discussi
 import { ReadAloud } from "@/components/lesson/read-aloud";
 import { LessonNotes } from "@/components/notes/lesson-notes";
 import { lessonReadable, lessonSections } from "@/lib/lesson-tts";
+import { Kicker, Meta } from "@/components/ui/editorial";
 import type { GlossaryEntry } from "@/components/lesson/term-callout";
 import type { CitationInfo } from "@/components/lesson/citation-card";
 import { z } from "zod";
@@ -95,15 +96,19 @@ export default async function LessonPage({
     <>
       <LessonProgressRail />
       <main className="mx-auto w-full max-w-[68ch] px-5 py-12 sm:px-6">
-        <header className="border-b border-line-soft pb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+        <header className="border-b-2 border-foreground/80 pb-7">
+          <Kicker>
             {trackTitle} · Level {levelNumber}
-          </p>
-          <h1 className="mt-3 font-display text-[clamp(1.875rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight">
+          </Kicker>
+          <h1 className="mt-3 font-display text-[clamp(2rem,4.5vw,3rem)] font-semibold leading-[1.06] tracking-tight">
             {lesson.title}
           </h1>
-          <p className="mt-3 text-sm text-muted-fg">
-            A {lesson.est_minutes}-minute lesson · tap any{" "}
+          <Meta
+            className="mt-4"
+            items={["Witness Ready", `${lesson.est_minutes} min read`, "ESV"]}
+          />
+          <p className="mt-4 text-sm leading-relaxed text-muted-fg">
+            Tap any{" "}
             <span className="font-medium text-accent">scripture reference</span>{" "}
             to read it, and any{" "}
             <span className="rounded-full border border-line-strong px-2 py-0.5 text-xs font-medium text-muted-fg">

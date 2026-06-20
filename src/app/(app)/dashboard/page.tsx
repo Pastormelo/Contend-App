@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Kicker, Meta, SectionHeading } from "@/components/ui/editorial";
 
 const LESSON_ID = "40000000-0000-0000-0000-000000000001";
 
@@ -69,182 +70,178 @@ export default async function DashboardPage() {
   const lessonRead = (lessonXp?.length ?? 0) > 0;
   const quizPassed = (passedAttempt?.length ?? 0) > 0;
   const lessonProgress = quizPassed ? 100 : lessonRead ? 50 : 0;
-  const today = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
+  const today = new Date()
+    .toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    })
+    .toUpperCase();
+
+  const deskBtn = (
+    href: string,
+    label: string,
+    variant: "primary" | "outline",
+    disabled = false,
+  ) => (
+    <Link href={href} className="mt-2.5 inline-block">
+      <Button size="sm" variant={variant} disabled={disabled}>
+        {label}
+      </Button>
+    </Link>
+  );
 
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-fg">
-        {today}
-      </p>
-      <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight">
+      {/* Masthead */}
+      <Meta items={[today, "Today's training"]} />
+      <h1 className="mt-3 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-[1.04] tracking-tight">
         {greetingFor(new Date().getHours())}, {firstName}.
       </h1>
-      <p className="mt-2 text-sm text-muted-fg">
-        Ten focused minutes. Here&apos;s today&apos;s training.
+      <p className="mt-2 max-w-xl text-base leading-relaxed text-muted-fg">
+        Ten focused minutes. Here&apos;s today&apos;s edition of your training.
       </p>
+      <div className="mt-6 border-t-2 border-foreground/80" />
 
+      {/* Bulletin */}
       {!hasPlacement && (
         <Link
           href="/assessment"
-          className="card-interactive mt-8 flex items-center justify-between gap-4 rounded-card border border-accent/30 bg-accent/[0.04] p-5 hover:border-accent/50"
+          className="group mt-6 flex items-center justify-between gap-4 border-l-2 border-accent bg-accent/[0.05] px-5 py-4 transition-colors hover:bg-accent/[0.08]"
         >
           <span>
-            <span className="block font-display text-lg font-semibold tracking-tight">
+            <Kicker>New reader</Kicker>
+            <span className="mt-1 block font-display text-lg font-semibold tracking-tight">
               Not sure where to start?
             </span>
-            <span className="mt-1 block text-sm leading-relaxed text-muted-fg">
+            <span className="mt-0.5 block text-sm leading-relaxed text-muted-fg">
               Take the 5-minute placement assessment — we&apos;ll read your
               footing and point you to the right course on the path.
             </span>
           </span>
-          <span className="shrink-0 font-display text-xl text-accent" aria-hidden>→</span>
+          <span
+            aria-hidden
+            className="shrink-0 font-display text-xl text-accent transition-transform group-hover:translate-x-1"
+          >
+            →
+          </span>
         </Link>
       )}
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2">
-        {/* Review queue */}
-        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              Memory
-            </p>
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-muted-fg" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-              <path d="M4 6h16M4 12h16M4 18h10" strokeLinecap="round" />
-            </svg>
-          </div>
-          <h2 className="mt-3 font-display text-xl font-semibold tracking-tight">
-            Review queue
+      {/* Lead story + desk rail */}
+      <div className="mt-8 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
+        {/* Lead: current lesson */}
+        <article className="flex flex-col">
+          <Kicker>{quizPassed ? "Course complete" : "Today's lesson"}</Kicker>
+          <h2 className="mt-2 font-display text-[clamp(1.75rem,3.6vw,2.5rem)] font-semibold leading-[1.08] tracking-tight">
+            {lesson?.title}
           </h2>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-fg">
-            {dueCount && dueCount > 0 ? (
-              <>
-                <span className="font-display text-4xl font-semibold tabular-nums text-foreground">
-                  {dueCount}
-                </span>{" "}
-                card{dueCount === 1 ? "" : "s"} due — clear them to keep the
-                case sharp and your streak alive.
-              </>
-            ) : (
-              "Nothing due right now. Finish a lesson to load its verses and arguments into your queue."
-            )}
+          <Meta
+            className="mt-3"
+            items={["The Trinity", "Level 1", `${lesson?.est_minutes} min read`]}
+          />
+          <p className="mt-4 max-w-prose text-[1.0625rem] leading-relaxed text-muted-fg">
+            {quizPassed
+              ? "You've finished the flagship lesson and passed its checkpoint. Keep it sharp in review, or read it again."
+              : lessonRead
+                ? "You've read it. Now prove it on the checkpoint — eight questions, graded honestly."
+                : "The flagship lesson: one God, three persons. What the Trinity is, what it isn't, and why it isn't a contradiction."}
           </p>
-          <Link href="/review" className="mt-5">
-            <Button className="w-full" disabled={!dueCount}>
-              {dueCount ? "Start review" : "Queue is clear"}
-            </Button>
-          </Link>
-        </section>
+          <Progress value={lessonProgress} className="mt-5 max-w-md" />
+          <div className="mt-5">
+            <Link
+              href={
+                lessonRead && !quizPassed
+                  ? `/learn/${LESSON_ID}/quiz`
+                  : `/learn/${LESSON_ID}`
+              }
+            >
+              <Button variant={quizPassed ? "outline" : "primary"} size="lg">
+                {quizPassed
+                  ? "Read again"
+                  : lessonRead
+                    ? "Take the checkpoint"
+                    : "Start reading"}
+              </Button>
+            </Link>
+          </div>
+        </article>
 
-        {/* Lesson */}
-        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              Study
-            </p>
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-muted-fg" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-              <path d="M12 6.5C10.4 5 8.2 4.5 5.5 4.5v13c2.7 0 4.9.5 6.5 2 1.6-1.5 3.8-2 6.5-2v-13c-2.7 0-4.9.5-6.5 2Zm0 0v13" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <h2 className="mt-3 font-display text-xl font-semibold tracking-tight">
-            {quizPassed ? "Course complete" : lessonRead ? "Prove it" : "Current lesson"}
-          </h2>
-          <div className="mt-2 flex-1">
-            <p className="text-sm font-medium">{lesson?.title}</p>
-            <p className="mt-1 text-xs text-muted-fg">
-              The Trinity · Level 1 · ~{lesson?.est_minutes} min
-            </p>
-            <Progress value={lessonProgress} className="mt-3" />
-          </div>
-          <Link href={lessonRead && !quizPassed ? `/learn/${LESSON_ID}/quiz` : `/learn/${LESSON_ID}`} className="mt-5">
-            <Button variant={quizPassed ? "outline" : "primary"} className="w-full">
-              {quizPassed ? "Read again" : lessonRead ? "Take the quiz" : "Continue reading"}
-            </Button>
-          </Link>
-        </section>
+        {/* The desk */}
+        <aside className="border-t-2 border-foreground/80 pt-5 lg:border-l lg:border-t-0 lg:border-foreground/15 lg:pl-7 lg:pt-0">
+          <h2 className="eyebrow text-foreground">On the desk</h2>
+          <ul className="mt-3 divide-y divide-line-soft border-y border-line-soft">
+            <li className="py-4">
+              <Kicker>Memory</Kicker>
+              <div className="mt-1 flex items-baseline justify-between gap-3">
+                <h3 className="font-display text-lg font-semibold tracking-tight">
+                  Review queue
+                </h3>
+                {dueCount ? (
+                  <span className="font-display text-2xl font-semibold tabular-nums text-accent">
+                    {dueCount}
+                  </span>
+                ) : null}
+              </div>
+              <p className="mt-1 text-sm leading-relaxed text-muted-fg">
+                {dueCount
+                  ? `card${dueCount === 1 ? "" : "s"} due — clear them to keep the case sharp.`
+                  : "Nothing due. Finish a lesson to load its verses and arguments."}
+              </p>
+              {deskBtn(
+                "/review",
+                dueCount ? "Start review" : "Queue clear",
+                dueCount ? "primary" : "outline",
+                !dueCount,
+              )}
+            </li>
 
-        {/* Drill */}
-        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              Drill
-            </p>
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-muted-fg" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-              <circle cx="12" cy="13" r="7" />
-              <path d="M12 10v3.5M9 3h6M12 3v3" strokeLinecap="round" />
-            </svg>
-          </div>
-          <h2 className="mt-3 font-display text-xl font-semibold tracking-tight">
-            Drill of the day
-          </h2>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-fg">
-            A real objection, 90 seconds, your own words — then an honest
-            score and a stronger answer to learn from.
-          </p>
-          <Link href="/respond" className="mt-5">
-            <Button variant="outline" className="w-full">
-              Take the drill
-            </Button>
-          </Link>
-        </section>
+            <li className="py-4">
+              <Kicker>Drill</Kicker>
+              <h3 className="mt-1 font-display text-lg font-semibold tracking-tight">
+                Drill of the day
+              </h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted-fg">
+                One objection, 90 seconds, your own words — then an honest score
+                and a stronger answer.
+              </p>
+              {deskBtn("/respond", "Take the drill", "outline")}
+            </li>
 
-        {/* Spar */}
-        <section className="card-interactive flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-              Spar
-            </p>
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-muted-fg" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-              <path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M9 11h6M9 14h3" strokeLinecap="round" />
-            </svg>
-          </div>
-          <h2 className="mt-3 font-display text-xl font-semibold tracking-tight">
-            Sparring ring
-          </h2>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-fg">
-            Marcus from next door has sincere questions about the Trinity.
-            Hold the conversation, then get the coach&apos;s film review.
-          </p>
-          <Link href="/spar" className="mt-5">
-            <Button variant="outline" className="w-full">
-              Start a conversation
-            </Button>
-          </Link>
-        </section>
+            <li className="py-4">
+              <Kicker>Spar</Kicker>
+              <h3 className="mt-1 font-display text-lg font-semibold tracking-tight">
+                Sparring ring
+              </h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted-fg">
+                Marcus next door has sincere questions. Hold the conversation,
+                then get the coach&apos;s film review.
+              </p>
+              {deskBtn("/spar", "Start a conversation", "outline")}
+            </li>
+          </ul>
+        </aside>
       </div>
 
-      <section className="mt-10 flex flex-col gap-3 rounded-card border border-line-soft bg-foreground/[0.02] p-6 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="font-display text-lg font-semibold tracking-tight">
-            Badges
-          </h2>
-          {badges && badges.length > 0 ? (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {badges.map((b) => (
-                <span
-                  key={b.badge_id}
-                  className="rounded-full border border-gold/50 bg-gold/10 px-3 py-1 text-xs font-medium text-gold"
-                >
-                  {(b.badges as { title: string } | null)?.title ?? "Badge"}
-                </span>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-1 text-sm text-muted-fg">
-              None yet — badges are earned, not given. Keep training.
-            </p>
-          )}
-        </div>
-        <Link
-          href="/tracks"
-          className="shrink-0 text-sm font-medium text-accent hover:text-accent-deep"
-        >
-          Browse all courses →
-        </Link>
+      {/* Honors */}
+      <section className="mt-12">
+        <SectionHeading label="Honors" action="All courses" actionHref="/tracks" />
+        {badges && badges.length > 0 ? (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {badges.map((b) => (
+              <span
+                key={b.badge_id}
+                className="rounded-full border border-gold/50 bg-gold/10 px-3 py-1 text-xs font-medium text-gold"
+              >
+                {(b.badges as { title: string } | null)?.title ?? "Badge"}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-muted-fg">
+            None yet — badges are earned, not given. Keep training.
+          </p>
+        )}
       </section>
     </main>
   );
