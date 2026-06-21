@@ -21,6 +21,7 @@ const MORE = [
   { href: "/notes", label: "Notes" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/friends", label: "Friends" },
+  { href: "/beliefs", label: "What we believe" },
   { href: "/account", label: "Account & progress" },
   { href: "/how-it-works", label: "How training works" },
 ];

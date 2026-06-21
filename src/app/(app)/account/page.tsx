@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Kicker } from "@/components/ui/editorial";
 
 export const metadata = { title: "Account" };
 
@@ -60,9 +61,7 @@ export default async function AccountPage() {
 
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-5 py-12 sm:px-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-fg">
-        Account
-      </p>
+      <Kicker tone="muted">Account</Kicker>
       <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight">
         {profile?.name ?? "Defender"}
       </h1>

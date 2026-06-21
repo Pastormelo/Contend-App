@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { Button } from "@/components/ui/button";
+import { Kicker, SectionHeading } from "@/components/ui/editorial";
 
 export const metadata = {
   title: "How Training Works",
@@ -41,20 +43,19 @@ export default function HowItWorksPage() {
       <SiteHeader />
       <main className="flex-1">
         <div className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent">
-            How it works
-          </p>
-          <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
+          <Kicker>How it works</Kicker>
+          <h1 className="mt-3 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
             A gym, not a library.
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-ink-soft">
+          <p className="mt-5 text-base leading-relaxed text-muted-fg">
             Reading about apologetics makes you informed. Training makes you
             ready. Every Witness Ready course runs the same four-part circuit, and
             everything you do is measured — honestly.
           </p>
 
           {/* The loop */}
-          <section className="mt-12 flex flex-col gap-5">
+          <SectionHeading label="The circuit" className="mt-14" />
+          <section className="mt-6 flex flex-col gap-5">
             {LOOP.map((item, i) => (
               <div
                 key={item.step}
@@ -68,7 +69,7 @@ export default function HowItWorksPage() {
                   <h2 className="font-display text-lg font-semibold tracking-tight">
                     {item.step}
                   </h2>
-                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-soft">
+                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-fg">
                     {item.body}
                   </p>
                 </div>
@@ -78,10 +79,11 @@ export default function HowItWorksPage() {
 
           {/* Honest scoring */}
           <section className="mt-16">
-            <h2 className="font-display text-2xl font-semibold tracking-tight">
+            <Kicker tone="brass">The scorecard</Kicker>
+            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
               Scored like it matters
             </h2>
-            <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
+            <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-fg">
               Drills and sparring sessions are scored 1–5 on five criteria.
               The coach is instructed to be honest, not encouraging: a
               non-answer scores 1 across the board, and a 5 means your answer
@@ -92,7 +94,7 @@ export default function HowItWorksPage() {
               {SCORING.map((s) => (
                 <div key={s.label} className="rounded-card border border-line-soft bg-surface px-5 py-4">
                   <dt className="text-sm font-semibold">{s.label}</dt>
-                  <dd className="mt-1 text-sm leading-relaxed text-ink-soft">{s.body}</dd>
+                  <dd className="mt-1 text-sm leading-relaxed text-muted-fg">{s.body}</dd>
                 </div>
               ))}
             </dl>
@@ -100,10 +102,11 @@ export default function HowItWorksPage() {
 
           {/* XP, streaks, levels */}
           <section className="mt-16">
-            <h2 className="font-display text-2xl font-semibold tracking-tight">
+            <Kicker tone="brass">The ledger</Kicker>
+            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
               XP, streaks, and levels
             </h2>
-            <div className="mt-4 flex flex-col gap-4 text-[0.9375rem] leading-relaxed text-ink-soft">
+            <div className="mt-4 flex flex-col gap-4 text-[0.9375rem] leading-relaxed text-muted-fg">
               <p>
                 <strong className="text-foreground">Experience points (XP)</strong>{" "}
                 are the ledger of your training. Lessons earn 50, passed
@@ -137,19 +140,16 @@ export default function HowItWorksPage() {
             </div>
           </section>
 
-          <div className="mt-16 flex flex-col items-center gap-3 rounded-card border border-line-soft bg-foreground/[0.02] p-8 text-center">
+          <div className="mt-16 flex flex-col items-center gap-3 rounded-card border border-line-soft bg-surface p-8 text-center">
             <p className="font-display text-xl font-semibold tracking-tight">
               See it from the inside.
             </p>
-            <p className="max-w-sm text-sm leading-relaxed text-ink-soft">
+            <p className="max-w-sm text-sm leading-relaxed text-muted-fg">
               The first course is open. Your first review queue can exist
               twenty minutes from now.
             </p>
-            <Link
-              href="/signup"
-              className="mt-2 inline-flex h-11 items-center rounded-lg bg-accent px-7 text-sm font-medium text-white transition-colors hover:bg-accent-deep"
-            >
-              Start training free
+            <Link href="/signup" className="mt-2 inline-block">
+              <Button size="lg">Start training free</Button>
             </Link>
           </div>
         </div>

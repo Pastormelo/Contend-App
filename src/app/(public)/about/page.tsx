@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { Button } from "@/components/ui/button";
+import { Kicker } from "@/components/ui/editorial";
 
 export const metadata = {
   title: "Why Witness Ready Exists",
@@ -23,10 +25,8 @@ export default function AboutPage() {
       <SiteHeader />
       <main className="flex-1">
         <article className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent">
-            Why Witness Ready exists
-          </p>
-          <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
+          <Kicker>Why Witness Ready exists</Kicker>
+          <h1 className="mt-3 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
             The church is full of believers who freeze.
           </h1>
 
@@ -85,11 +85,12 @@ export default function AboutPage() {
           </div>
 
           <section id="affirms" className="mt-16 scroll-mt-24">
-            <div className="rounded-card border border-line-soft bg-foreground/[0.02] p-7">
-              <h2 className="font-display text-xl font-semibold tracking-tight">
-                What Witness Ready affirms
+            <div className="rounded-card border border-line-soft bg-surface p-7">
+              <Kicker tone="brass">What Witness Ready affirms</Kicker>
+              <h2 className="mt-2 font-display text-xl font-semibold tracking-tight">
+                The convictions behind every course
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+              <p className="mt-2 text-sm leading-relaxed text-muted-fg">
                 Every lesson, drill, and coached review on this platform is
                 built inside these convictions:
               </p>
@@ -110,15 +111,12 @@ export default function AboutPage() {
             <p className="font-display text-xl font-semibold tracking-tight">
               Ready to stop rehearsing regrets?
             </p>
-            <Link
-              href="/signup"
-              className="mt-2 inline-flex h-11 items-center rounded-lg bg-accent px-7 text-sm font-medium text-white transition-colors hover:bg-accent-deep"
-            >
-              Start your first course
+            <Link href="/signup" className="mt-2 inline-block">
+              <Button size="lg">Start your first course</Button>
             </Link>
             <Link
               href="/training"
-              className="text-sm font-medium text-ink-soft hover:text-foreground"
+              className="text-sm font-medium text-muted-fg hover:text-foreground"
             >
               or read about the training first →
             </Link>

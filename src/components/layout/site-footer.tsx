@@ -23,7 +23,7 @@ export function SiteFooter() {
             <li><Link href="/about" className="text-ink-soft transition-colors hover:text-foreground">Why Witness Ready exists</Link></li>
             <li><Link href="/training" className="text-ink-soft transition-colors hover:text-foreground">The training catalog</Link></li>
             <li><Link href="/how-it-works" className="text-ink-soft transition-colors hover:text-foreground">How training works</Link></li>
-            <li><Link href="/about#affirms" className="text-ink-soft transition-colors hover:text-foreground">What Witness Ready affirms</Link></li>
+            <li><Link href="/beliefs" className="text-ink-soft transition-colors hover:text-foreground">What we believe</Link></li>
           </ul>
         </div>
         <div>

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { SectionHeading } from "@/components/ui/editorial";
 import { NoteEditor } from "@/components/notes/note-editor";
 import { renderNotes, noteSnippet } from "@/lib/notes-format";
 import { course, formatCourseNumber } from "@/lib/courses";
@@ -118,10 +119,7 @@ export function NotesManager({ notes }: { notes: Note[] }) {
 
       {groups.map((g) => (
         <section key={g.label}>
-          <h2 className="flex items-center gap-3 font-display text-lg font-semibold tracking-tight">
-            {g.label}
-            <span className="h-px flex-1 bg-line-soft" />
-          </h2>
+          <SectionHeading label={g.label} />
           <div className="mt-4 flex flex-col gap-3">
             {g.notes.map((n) =>
               editingId === n.id ? (
