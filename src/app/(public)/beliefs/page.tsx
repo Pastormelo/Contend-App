@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Kicker, SectionHeading } from "@/components/ui/editorial";
+import { SectionNav, type NavSection } from "@/components/ui/section-nav";
 import {
   POSTURE,
   LEAD,
@@ -19,6 +20,18 @@ export const metadata = {
   description:
     "The doctrinal foundation of Witness Ready: historic, biblical, Trinitarian Christianity, consistent with the Apostles', Nicene, Chalcedonian, and Athanasian creeds.",
 };
+
+const SECTIONS: NavSection[] = [
+  { id: "affirm", label: "Affirmations" },
+  { id: "scripture", label: "Scripture" },
+  { id: "trinity", label: "Trinity" },
+  { id: "christ", label: "Christ" },
+  { id: "spirit", label: "Spirit" },
+  { id: "gospel", label: "Gospel" },
+  { id: "guarding", label: "The lines" },
+  { id: "why-creeds", label: "The creeds" },
+  { id: "standards", label: "Standards" },
+];
 
 export default function BeliefsPage() {
   return (
@@ -48,8 +61,10 @@ export default function BeliefsPage() {
           </div>
         </section>
 
+        <SectionNav sections={SECTIONS} />
+
         {/* What we affirm */}
-        <section className="border-b border-line-soft">
+        <section id="affirm" className="scroll-mt-[10rem] border-b border-line-soft">
           <div className="mx-auto w-full max-w-4xl px-6 py-16 sm:px-8">
             <SectionHeading label="What we affirm" />
             <ol className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2">
@@ -78,7 +93,7 @@ export default function BeliefsPage() {
             <SectionHeading label="By doctrine" />
             <div className="mt-10 flex flex-col gap-14">
               {DOCTRINES.map((d) => (
-                <article key={d.id} id={d.id} className="scroll-mt-24">
+                <article key={d.id} id={d.id} className="scroll-mt-[10rem]">
                   <Kicker>{d.kicker}</Kicker>
                   <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
                     {d.title}
@@ -113,7 +128,7 @@ export default function BeliefsPage() {
         </section>
 
         {/* Guarding the lines */}
-        <section className="border-b border-line-soft bg-foreground/[0.02]">
+        <section id="guarding" className="scroll-mt-[10rem] border-b border-line-soft bg-foreground/[0.02]">
           <div className="mx-auto w-full max-w-3xl px-6 py-16">
             <SectionHeading label="Guarding the lines" />
             <p className="mt-4 text-base leading-relaxed text-muted-fg">
@@ -146,7 +161,7 @@ export default function BeliefsPage() {
         </section>
 
         {/* Why the creeds */}
-        <section className="border-b border-line-soft">
+        <section id="why-creeds" className="scroll-mt-[10rem] border-b border-line-soft">
           <div className="mx-auto w-full max-w-3xl px-6 py-16">
             <SectionHeading label="Why the creeds" />
             <div className="mt-6 flex flex-col gap-4">
@@ -160,7 +175,7 @@ export default function BeliefsPage() {
         </section>
 
         {/* Doctrinal standards */}
-        <section className="border-b border-line-soft">
+        <section id="standards" className="scroll-mt-[10rem] border-b border-line-soft">
           <div className="mx-auto w-full max-w-3xl px-6 py-16">
             <SectionHeading label="Doctrinal standards" />
             <p className="mt-4 text-base leading-relaxed text-muted-fg">
