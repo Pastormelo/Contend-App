@@ -170,6 +170,34 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* ---------- What we believe (short) ---------- */}
+        <section className="border-b border-line-soft">
+          <div className="mx-auto w-full max-w-6xl px-6 py-20 sm:px-10">
+            <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-center">
+              <Reveal>
+                <SectionHeading label="What we believe" />
+                <h2 className="mt-5 font-display text-[clamp(1.75rem,4vw,2.5rem)] font-semibold leading-tight tracking-tight">
+                  Historic, biblical, Trinitarian.
+                </h2>
+              </Reveal>
+              <Reveal delay={120}>
+                <p className="text-lg leading-relaxed text-muted-fg">
+                  One God in three persons. Jesus Christ — fully God and fully
+                  man — crucified for sinners and risen bodily. Salvation by
+                  grace alone, through faith alone, in Christ alone, with
+                  Scripture as the final authority.
+                </p>
+                <Link
+                  href="/beliefs"
+                  className="link-underline mt-5 inline-block text-base font-medium text-accent"
+                >
+                  Read what we believe →
+                </Link>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
         {/* ---------- Closing CTA (the single dark band) ---------- */}
         <section className="relative overflow-hidden bg-ink text-paper">
           <div

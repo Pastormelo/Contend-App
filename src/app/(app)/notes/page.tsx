@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NotesManager, type Note } from "@/components/notes/notes-manager";
+import { Kicker } from "@/components/ui/editorial";
 
 export const metadata = { title: "Notes" };
 
@@ -18,9 +19,7 @@ export default async function NotesPage() {
 
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-5 py-12 sm:px-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-fg">
-        Your journal
-      </p>
+      <Kicker tone="muted">Your journal</Kicker>
       <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight">
         Notes
       </h1>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { Kicker, SectionHeading } from "@/components/ui/editorial";
 import { SUBJECTS } from "@/lib/site-content";
 import { course, formatCourseNumber } from "@/lib/courses";
 
@@ -22,13 +23,11 @@ export default function TrainingCatalogPage() {
       <SiteHeader />
       <main className="flex-1">
         <div className="mx-auto w-full max-w-5xl px-6 py-16 sm:px-10 sm:py-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent">
-            The training
-          </p>
-          <h1 className="mt-4 max-w-2xl font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
+          <Kicker>The training</Kicker>
+          <h1 className="mt-3 max-w-2xl font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
             Ten courses. One path. Each builds on the last.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-soft">
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-fg">
             The path is numbered for a reason.{" "}
             <strong className="text-foreground">Foundations (1–5)</strong> build the
             positive case — what Scripture teaches and why it holds.{" "}
@@ -39,27 +38,21 @@ export default function TrainingCatalogPage() {
             free; start where you&apos;re ready.
           </p>
 
-          <h2 className="mt-14 flex items-center gap-3 font-display text-xl font-semibold tracking-tight">
-            Foundations
-            <span className="h-px flex-1 bg-line-soft" />
-          </h2>
+          <SectionHeading label="Foundations · 1–5" className="mt-14" />
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {doctrine.map((s) => (
               <SubjectCard key={s.slug} subject={s} />
             ))}
           </div>
 
-          <h2 className="mt-14 flex items-center gap-3 font-display text-xl font-semibold tracking-tight">
-            Engagements
-            <span className="h-px flex-1 bg-line-soft" />
-          </h2>
+          <SectionHeading label="Engagements · 6–10" className="mt-14" />
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {engagement.map((s) => (
               <SubjectCard key={s.slug} subject={s} />
             ))}
           </div>
 
-          <p className="mt-14 rounded-card border border-line-soft bg-foreground/[0.02] p-6 text-sm leading-relaxed text-ink-soft">
+          <p className="mt-14 rounded-card border border-line-soft bg-surface p-6 text-sm leading-relaxed text-muted-fg">
             <strong className="text-foreground">How the path unlocks:</strong> begin
             with any foundation that has no prerequisite. Complete a course —
             its lessons, memory work, and checkpoint — and the courses that
@@ -82,10 +75,10 @@ function SubjectCard({
   return (
     <Link
       href={`/training/${s.slug}`}
-      className="group flex flex-col rounded-card border border-line-soft bg-surface p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-md"
+      className="card-interactive group flex flex-col rounded-card border border-line-soft bg-surface p-6 hover:border-accent/30"
     >
       <div className="flex items-center justify-between">
-        <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink-soft">
+        <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-fg">
           Course {formatCourseNumber(course(s.slug)?.number ?? 0)} ·{" "}
           {s.kind === "doctrine" ? "Foundation" : "Engagement"}
         </span>
@@ -94,7 +87,7 @@ function SubjectCard({
             Open now
           </span>
         ) : (
-          <span className="rounded-full border border-line-soft px-2.5 py-0.5 text-[0.6875rem] font-medium text-ink-soft">
+          <span className="rounded-full border border-line-soft px-2.5 py-0.5 text-[0.6875rem] font-medium text-muted-fg">
             In production
           </span>
         )}
@@ -102,7 +95,7 @@ function SubjectCard({
       <h3 className="mt-3 font-display text-xl font-semibold tracking-tight transition-colors group-hover:text-accent">
         {s.title}
       </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-fg">
         {s.tagline}
       </p>
       <span className="mt-4 text-sm font-medium text-accent">

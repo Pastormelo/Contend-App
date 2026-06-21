@@ -92,6 +92,18 @@ export default async function LessonPage({
   const readableSegments = lessonReadable(lesson.title, blocks);
   const sections = lessonSections(blocks);
 
+  // Jump-to contents built from block headings.
+  const contents = blocks
+    .map((b) => {
+      const c = (b.content ?? {}) as { heading?: string; word?: string };
+      if ((b.type === "prose" || b.type === "objection") && c.heading)
+        return { id: `block-${b.id}`, label: c.heading };
+      if (b.type === "word_study" && c.word)
+        return { id: `block-${b.id}`, label: `Word study: ${c.word}` };
+      return null;
+    })
+    .filter((x): x is { id: string; label: string } => x !== null);
+
   return (
     <>
       <LessonProgressRail />
@@ -119,6 +131,27 @@ export default async function LessonPage({
         </header>
 
         <ReadAloud segments={readableSegments} lessonId={lesson.id} />
+
+        {contents.length > 2 && (
+          <details className="mt-6 rounded-card border border-line-soft bg-surface px-4 py-3 [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold tracking-tight">
+              In this lesson
+              <span aria-hidden className="text-muted-fg">▾</span>
+            </summary>
+            <ul className="mt-3 flex flex-col gap-1.5 border-t border-line-soft pt-3">
+              {contents.map((c) => (
+                <li key={c.id}>
+                  <a
+                    href={`#${c.id}`}
+                    className="text-sm text-muted-fg transition-colors hover:text-accent"
+                  >
+                    {c.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
 
         <article className="mt-4">
           {blocks.map((block, i) => {

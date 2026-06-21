@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { Button } from "@/components/ui/button";
+import { Kicker } from "@/components/ui/editorial";
 import { SUBJECTS, getSubject } from "@/lib/site-content";
 import { renderInline } from "@/lib/markdown";
 
@@ -34,17 +36,17 @@ export default async function SubjectPreviewPage({
       <SiteHeader />
       <main className="flex-1">
         <article className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-20">
-          <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">
-            <Link href="/training" className="text-accent hover:text-accent-deep">
+          <p className="flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-fg">
+            <Link href="/training" className="link-underline text-accent">
               The training
             </Link>
-            <span aria-hidden>/</span>
+            <span aria-hidden className="text-muted-fg/40">/</span>
             {subject.kind === "doctrine" ? "Doctrine course" : "Engagement course"}
           </p>
           <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
             {subject.title}
           </h1>
-          <p className="mt-3 font-display text-lg italic leading-relaxed text-ink-soft">
+          <p className="mt-3 font-display text-lg italic leading-relaxed text-muted-fg">
             {subject.tagline}
           </p>
 
@@ -54,8 +56,9 @@ export default async function SubjectPreviewPage({
             ))}
           </div>
 
-          <section className="mt-12 rounded-card border border-line-soft bg-foreground/[0.02] p-7">
-            <h2 className="font-display text-lg font-semibold tracking-tight">
+          <section className="mt-12 rounded-card border border-line-soft bg-surface p-7">
+            <Kicker tone="brass">Outcomes</Kicker>
+            <h2 className="mt-2 font-display text-lg font-semibold tracking-tight">
               What the full course trains into you
             </h2>
             <ul className="mt-4 flex flex-col gap-2.5">
@@ -69,10 +72,11 @@ export default async function SubjectPreviewPage({
           </section>
 
           <section className="mt-6 rounded-card border border-accent/25 bg-accent/[0.04] p-7">
-            <h2 className="font-display text-lg font-semibold tracking-tight">
-              Watch out for
+            <Kicker>Watch out for</Kicker>
+            <h2 className="mt-2 font-display text-lg font-semibold tracking-tight">
+              The traps in this conversation
             </h2>
-            <p className="mt-1 text-sm text-ink-soft">
+            <p className="mt-1 text-sm text-muted-fg">
               Traps this conversation is known for — the course drills all of them.
             </p>
             <ul className="mt-4 flex flex-col gap-2.5">
@@ -91,11 +95,8 @@ export default async function SubjectPreviewPage({
                 <p className="font-display text-xl font-semibold tracking-tight">
                   This course is open now.
                 </p>
-                <Link
-                  href="/signup"
-                  className="mt-2 inline-flex h-11 items-center rounded-lg bg-accent px-7 text-sm font-medium text-white transition-colors hover:bg-accent-deep"
-                >
-                  Start training free
+                <Link href="/signup" className="mt-2 inline-block">
+                  <Button size="lg">Start training free</Button>
                 </Link>
               </>
             ) : (
@@ -103,24 +104,19 @@ export default async function SubjectPreviewPage({
                 <p className="font-display text-xl font-semibold tracking-tight">
                   This course is in production.
                 </p>
-                <p className="max-w-md text-sm leading-relaxed text-ink-soft">
+                <p className="max-w-md text-sm leading-relaxed text-muted-fg">
                   Start with an open course now — your training account
                   carries into every course as it releases.
                 </p>
-                <Link
-                  href="/signup"
-                  className="mt-2 inline-flex h-11 items-center rounded-lg bg-accent px-7 text-sm font-medium text-white transition-colors hover:bg-accent-deep"
-                >
-                  Start training free
+                <Link href="/signup" className="mt-2 inline-block">
+                  <Button size="lg">Start training free</Button>
                 </Link>
               </>
             )}
           </div>
 
           <nav className="mt-14 border-t border-line-soft pt-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">
-              Keep reading
-            </p>
+            <Kicker tone="muted">Keep reading</Kicker>
             <div className="mt-4 flex flex-col gap-2">
               {others.map((s) => (
                 <Link
