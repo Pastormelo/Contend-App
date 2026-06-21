@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
-const BRASS = "#b08d3e";
-const EVERGREEN = "#1e4d3a";
+const BRASS = "#b5893c";
+const ACCENT = "#1d4ed8";
 
 /**
  * The Witness Ready mark: an academic seal — a brass double-ring crest
@@ -30,7 +30,7 @@ export function LogoMark({ className }: { className?: string }) {
         x="24"
         y="31"
         textAnchor="middle"
-        fill={EVERGREEN}
+        fill={ACCENT}
         style={{
           fontFamily: "var(--font-newsreader), Georgia, 'Times New Roman', serif",
           fontWeight: 600,

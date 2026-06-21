@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-  <rect width="48" height="48" rx="9" fill="#f4f0e6"/>
-  <circle cx="24" cy="24" r="20.5" fill="none" stroke="#b08d3e" stroke-width="1.6"/>
-  <circle cx="24" cy="24" r="17" fill="none" stroke="#b08d3e" stroke-width="0.8"/>
-  <path d="M24 5 V10 M21.4 7.5 H26.6" stroke="#b08d3e" stroke-width="1.7" stroke-linecap="round"/>
-  <text x="24" y="31" text-anchor="middle" fill="#1e4d3a" font-family="Georgia, 'Times New Roman', serif" font-weight="600" font-size="16" letter-spacing="-0.5">WR</text>
+  <rect width="48" height="48" rx="9" fill="#ffffff"/>
+  <circle cx="24" cy="24" r="20.5" fill="none" stroke="#b5893c" stroke-width="1.6"/>
+  <circle cx="24" cy="24" r="17" fill="none" stroke="#b5893c" stroke-width="0.8"/>
+  <path d="M24 5 V10 M21.4 7.5 H26.6" stroke="#b5893c" stroke-width="1.7" stroke-linecap="round"/>
+  <text x="24" y="31" text-anchor="middle" fill="#1d4ed8" font-family="Georgia, 'Times New Roman', serif" font-weight="600" font-size="16" letter-spacing="-0.5">WR</text>
 </svg>
