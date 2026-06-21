@@ -3,12 +3,19 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Button } from "@/components/ui/button";
 import { Kicker, SectionHeading } from "@/components/ui/editorial";
+import { SectionNav, type NavSection } from "@/components/ui/section-nav";
 
 export const metadata = {
   title: "How Training Works",
   description:
     "The Witness Ready method: lessons, spaced-repetition memory, timed drills, sparring simulations, honest coaching, XP, streaks, and levels — explained.",
 };
+
+const SECTIONS: NavSection[] = [
+  { id: "circuit", label: "The circuit" },
+  { id: "scorecard", label: "Scorecard" },
+  { id: "ledger", label: "XP & levels" },
+];
 
 const LOOP = [
   {
@@ -42,7 +49,8 @@ export default function HowItWorksPage() {
     <div className="flex min-h-full flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <div className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-20">
+        {/* Intro */}
+        <div className="mx-auto w-full max-w-2xl px-6 pt-16 sm:pt-20">
           <Kicker>How it works</Kicker>
           <h1 className="mt-3 font-display text-[clamp(2rem,5vw,3rem)] font-semibold leading-tight tracking-tight">
             A gym, not a library.
@@ -52,43 +60,49 @@ export default function HowItWorksPage() {
             ready. Every Witness Ready course runs the same four-part circuit, and
             everything you do is measured — honestly.
           </p>
+        </div>
 
-          {/* The loop */}
-          <SectionHeading label="The circuit" className="mt-14" />
-          <section className="mt-6 flex flex-col gap-5">
-            {LOOP.map((item, i) => (
-              <div
-                key={item.step}
-                id={item.step === "Spar" ? "sparring" : undefined}
-                className="flex gap-5 rounded-card border border-line-soft bg-surface p-6"
-              >
-                <span className="font-display text-2xl font-semibold text-accent">
-                  {i + 1}
-                </span>
-                <div>
-                  <h2 className="font-display text-lg font-semibold tracking-tight">
-                    {item.step}
-                  </h2>
-                  <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-fg">
-                    {item.body}
-                  </p>
+        <SectionNav sections={SECTIONS} />
+
+        <div className="mx-auto w-full max-w-2xl px-6 pb-16 sm:pb-20">
+          {/* The circuit */}
+          <section id="circuit" className="scroll-mt-[10rem] pt-14">
+            <SectionHeading label="The circuit" />
+            <div className="mt-6 flex flex-col gap-5">
+              {LOOP.map((item, i) => (
+                <div
+                  key={item.step}
+                  id={item.step === "Spar" ? "sparring" : undefined}
+                  className="flex gap-5 rounded-card border border-line-soft bg-surface p-6"
+                >
+                  <span className="font-display text-2xl font-semibold text-accent">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h2 className="font-display text-lg font-semibold tracking-tight">
+                      {item.step}
+                    </h2>
+                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-fg">
+                      {item.body}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </section>
 
           {/* Honest scoring */}
-          <section className="mt-16">
+          <section id="scorecard" className="mt-16 scroll-mt-[10rem]">
             <Kicker tone="brass">The scorecard</Kicker>
             <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
               Scored like it matters
             </h2>
             <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-fg">
-              Drills and sparring sessions are scored 1–5 on five criteria.
-              The coach is instructed to be honest, not encouraging: a
-              non-answer scores 1 across the board, and a 5 means your answer
-              would hold up against a sharp, real interlocutor. If your scores
-              sting a little, the training is working.
+              Drills and sparring sessions are scored 1–5 on five criteria. The
+              coach is instructed to be honest, not encouraging: a non-answer
+              scores 1 across the board, and a 5 means your answer would hold up
+              against a sharp, real interlocutor. If your scores sting a little,
+              the training is working.
             </p>
             <dl className="mt-6 flex flex-col gap-3">
               {SCORING.map((s) => (
@@ -101,7 +115,7 @@ export default function HowItWorksPage() {
           </section>
 
           {/* XP, streaks, levels */}
-          <section className="mt-16">
+          <section id="ledger" className="mt-16 scroll-mt-[10rem]">
             <Kicker tone="brass">The ledger</Kicker>
             <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight">
               XP, streaks, and levels
@@ -109,12 +123,11 @@ export default function HowItWorksPage() {
             <div className="mt-4 flex flex-col gap-4 text-[0.9375rem] leading-relaxed text-muted-fg">
               <p>
                 <strong className="text-foreground">Experience points (XP)</strong>{" "}
-                are the ledger of your training. Lessons earn 50, passed
-                quizzes 25, a cleared review queue 15 a day — and drills and
-                sparring pay out by performance, up to 100 and 250. A weak
-                showing earns little. A non-answer earns nothing. The number
-                next to your name is work actually done, which is why it
-                means something.
+                are the ledger of your training. Lessons earn 50, passed quizzes
+                25, a cleared review queue 15 a day — and drills and sparring
+                pay out by performance, up to 100 and 250. A weak showing earns
+                little. A non-answer earns nothing. The number next to your name
+                is work actually done, which is why it means something.
               </p>
               <p>
                 <strong className="text-foreground">Your streak</strong> (the flame)
@@ -127,15 +140,14 @@ export default function HowItWorksPage() {
                 equipped to do. Every course climbs the same ladder — from
                 Beginner (“can explain the claim in plain language”) through
                 Defender (“can hold a real conversation under pressure”) and
-                beyond. You advance by completing the material and proving it
-                in assessment, not by showing up.
+                beyond. You advance by completing the material and proving it in
+                assessment, not by showing up.
               </p>
               <p>
                 <strong className="text-foreground">Courses unlock by finishing.</strong>{" "}
-                Pick any open course first. Complete it, and you choose your
-                next one — no fixed order. Completed courses stay open
-                forever; their flashcards stay in your review queue so the
-                case never fades.
+                Pick any open course first. Complete it, and you choose your next
+                one — no fixed order. Completed courses stay open forever; their
+                flashcards stay in your review queue so the case never fades.
               </p>
             </div>
           </section>
@@ -145,8 +157,8 @@ export default function HowItWorksPage() {
               See it from the inside.
             </p>
             <p className="max-w-sm text-sm leading-relaxed text-muted-fg">
-              The first course is open. Your first review queue can exist
-              twenty minutes from now.
+              The first course is open. Your first review queue can exist twenty
+              minutes from now.
             </p>
             <Link href="/signup" className="mt-2 inline-block">
               <Button size="lg">Start training free</Button>

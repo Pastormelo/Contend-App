@@ -30,3 +30,5 @@
 - Extended the white/blue/gold design system to the remaining pages (about, how-it-works, training + previews, account, notes): standardized text-muted-fg, bg-surface cards, shared Kicker/SectionHeading/Button primitives, card-interactive hovers. Game-play and remaining notes components already token-clean.
 
 - Added in-page section navigation. New reusable SectionNav (src/components/ui/section-nav.tsx): a sticky "jump to section" bar with scroll-spy active highlighting. Applied to /beliefs (Affirmations, the five doctrines, the lines, the creeds, standards) with scroll-margins so anchors clear the sticky headers. Lesson reader gets a collapsible "In this lesson" jump list built from block headings (links to existing block anchors).
+
+- Added the sticky SectionNav jump-bar to the "How it works" page (The circuit / Scorecard / XP & levels) and the course preview pages (Overview / Outcomes / The traps), matching the /beliefs behavior with scroll-spy highlighting.

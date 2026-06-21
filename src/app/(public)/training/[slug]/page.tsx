@@ -4,8 +4,15 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/editorial";
+import { SectionNav, type NavSection } from "@/components/ui/section-nav";
 import { SUBJECTS, getSubject } from "@/lib/site-content";
 import { renderInline } from "@/lib/markdown";
+
+const SECTIONS: NavSection[] = [
+  { id: "overview", label: "Overview" },
+  { id: "outcomes", label: "Outcomes" },
+  { id: "traps", label: "The traps" },
+];
 
 export function generateStaticParams() {
   return SUBJECTS.map((s) => ({ slug: s.slug }));
@@ -35,7 +42,8 @@ export default async function SubjectPreviewPage({
     <div className="flex min-h-full flex-col">
       <SiteHeader />
       <main className="flex-1">
-        <article className="mx-auto w-full max-w-2xl px-6 py-16 sm:py-20">
+        {/* Header */}
+        <div className="mx-auto w-full max-w-2xl px-6 pt-16 sm:pt-20">
           <p className="flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-muted-fg">
             <Link href="/training" className="link-underline text-accent">
               The training
@@ -49,14 +57,25 @@ export default async function SubjectPreviewPage({
           <p className="mt-3 font-display text-lg italic leading-relaxed text-muted-fg">
             {subject.tagline}
           </p>
+        </div>
 
-          <div className="mt-10 flex flex-col gap-6 border-t border-line-soft pt-10 text-[1.0625rem] leading-[1.8]">
-            {subject.article.map((p, i) => (
-              <p key={i}>{renderInline(p)}</p>
-            ))}
-          </div>
+        <SectionNav sections={SECTIONS} />
 
-          <section className="mt-12 rounded-card border border-line-soft bg-surface p-7">
+        <article className="mx-auto w-full max-w-2xl px-6 pb-16 sm:pb-20">
+          {/* Overview */}
+          <section id="overview" className="scroll-mt-[10rem] pt-12">
+            <div className="flex flex-col gap-6 text-[1.0625rem] leading-[1.8]">
+              {subject.article.map((p, i) => (
+                <p key={i}>{renderInline(p)}</p>
+              ))}
+            </div>
+          </section>
+
+          {/* Outcomes */}
+          <section
+            id="outcomes"
+            className="mt-12 scroll-mt-[10rem] rounded-card border border-line-soft bg-surface p-7"
+          >
             <Kicker tone="brass">Outcomes</Kicker>
             <h2 className="mt-2 font-display text-lg font-semibold tracking-tight">
               What the full course trains into you
@@ -71,7 +90,11 @@ export default async function SubjectPreviewPage({
             </ul>
           </section>
 
-          <section className="mt-6 rounded-card border border-accent/25 bg-accent/[0.04] p-7">
+          {/* The traps */}
+          <section
+            id="traps"
+            className="mt-6 scroll-mt-[10rem] rounded-card border border-accent/25 bg-accent/[0.04] p-7"
+          >
             <Kicker>Watch out for</Kicker>
             <h2 className="mt-2 font-display text-lg font-semibold tracking-tight">
               The traps in this conversation
@@ -105,8 +128,8 @@ export default async function SubjectPreviewPage({
                   This course is in production.
                 </p>
                 <p className="max-w-md text-sm leading-relaxed text-muted-fg">
-                  Start with an open course now — your training account
-                  carries into every course as it releases.
+                  Start with an open course now — your training account carries
+                  into every course as it releases.
                 </p>
                 <Link href="/signup" className="mt-2 inline-block">
                   <Button size="lg">Start training free</Button>
