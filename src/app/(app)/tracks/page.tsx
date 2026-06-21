@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getSubject } from "@/lib/site-content";
-import { Kicker, Meta, SectionHeading, Rank } from "@/components/ui/editorial";
+import { Kicker, SectionHeading } from "@/components/ui/editorial";
 import { cn } from "@/lib/utils";
 import {
   COURSES,
@@ -46,13 +46,11 @@ export default async function TracksPage() {
       <h1 className="mt-3 font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight">
         Courses
       </h1>
-      <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted-fg">
-        The path is numbered for a reason — each course assumes what came before
-        it. Foundations build the case; engagements apply it to a worldview. A
-        course unlocks once you&apos;ve completed what it depends on, and
-        finished courses stay open for review.
+      <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-fg">
+        The path is numbered for a reason — each course builds on the ones before
+        it. Finish a course to unlock what depends on it. Completed courses stay
+        open for review.
       </p>
-      <div className="mt-6 border-t-2 border-foreground/80" />
 
       <CourseSection
         label="Foundations"
@@ -63,12 +61,31 @@ export default async function TracksPage() {
       />
       <CourseSection
         label="Engagements"
-        blurb="Apply the foundations to a specific worldview and its playbook."
+        blurb="Applying the foundations to a specific worldview and its playbook."
         courses={engagements}
         completed={completed}
         hasStarted={hasStarted}
       />
     </main>
+  );
+}
+
+function StatusPill({ status }: { status: string }) {
+  const styles: Record<string, string> = {
+    Open: "bg-accent/10 text-accent",
+    Completed: "bg-gold/15 text-gold",
+    Locked: "border border-line-strong text-muted-fg",
+    "In production": "border border-line-soft text-muted-fg",
+  };
+  return (
+    <span
+      className={cn(
+        "rounded-full px-2.5 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em]",
+        styles[status],
+      )}
+    >
+      {status}
+    </span>
   );
 }
 
@@ -92,14 +109,13 @@ function CourseSection({
         {blurb}
       </p>
 
-      <div className="mt-6 border-t border-line-soft">
+      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {courses.map((c) => {
           const subject = getSubject(c.slug);
           const unlocked = isUnlocked(c.slug, completed);
           const done = completed.has(c.slug);
           const playable = c.hasContent && unlocked;
           const missing = missingPrereqs(c.slug, completed);
-          const kind = subject?.kind === "engagement" ? "Engagement" : "Doctrine";
           const status = done
             ? "Completed"
             : !c.hasContent
@@ -110,79 +126,77 @@ function CourseSection({
 
           const inner = (
             <>
-              <Rank n={c.number} />
-              <div className="min-w-0 flex-1">
-                <Meta items={[kind, status]} />
-                <h3
-                  className={cn(
-                    "mt-1.5 font-display text-xl font-semibold tracking-tight sm:text-2xl",
-                    playable
-                      ? "transition-colors group-hover:text-accent"
-                      : "text-muted-fg",
-                  )}
-                >
-                  {c.title}
-                </h3>
-                <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-fg">
-                  {subject?.tagline}
-                </p>
-                {playable ? (
-                  <p className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-accent/80">
-                    {done
-                      ? "Complete • review anytime"
-                      : hasStarted && c.slug === "trinity"
-                        ? "In progress"
-                        : "Ready to begin"}
-                  </p>
-                ) : (
-                  <p className="mt-2 text-xs leading-relaxed text-muted-fg">
-                    {!c.hasContent
-                      ? "Content in production."
-                      : missing.length > 0
-                        ? `Unlocks after ${missing
-                            .map((m) => `${formatCourseNumber(m.number)} ${m.title}`)
-                            .join(", ")}.`
-                        : "Locked."}
-                    {subject && (
-                      <>
-                        {" "}
-                        <Link
-                          href={`/training/${c.slug}`}
-                          className="font-medium text-accent hover:text-accent-deep"
-                        >
-                          Read the preview →
-                        </Link>
-                      </>
-                    )}
-                  </p>
-                )}
-              </div>
-              {playable && (
-                <span
-                  aria-hidden
-                  className="hidden shrink-0 self-center font-display text-xl text-muted-fg transition-transform group-hover:translate-x-1 group-hover:text-accent sm:block"
-                >
-                  →
+              <div className="flex items-center justify-between">
+                <span className="font-display text-sm font-semibold text-accent">
+                  {formatCourseNumber(c.number)}
                 </span>
+                <StatusPill status={status} />
+              </div>
+              <h3
+                className={cn(
+                  "mt-3 font-display text-lg font-semibold tracking-tight",
+                  playable ? "transition-colors group-hover:text-accent" : "text-muted-fg",
+                )}
+              >
+                {c.title}
+              </h3>
+              <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-fg">
+                {subject?.tagline}
+              </p>
+              {playable ? (
+                <p className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent">
+                  {done
+                    ? "Review course"
+                    : hasStarted && c.slug === "trinity"
+                      ? "Continue"
+                      : "Start course"}
+                  <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </p>
+              ) : (
+                <p className="mt-4 border-t border-line-soft pt-3 text-xs leading-relaxed text-muted-fg">
+                  {!c.hasContent
+                    ? "Content in production."
+                    : missing.length > 0
+                      ? `Unlocks after ${missing
+                          .map((m) => `${formatCourseNumber(m.number)} ${m.title}`)
+                          .join(", ")}.`
+                      : "Locked."}
+                  {subject && (
+                    <>
+                      {" "}
+                      <Link
+                        href={`/training/${c.slug}`}
+                        className="font-medium text-accent hover:text-accent-deep"
+                      >
+                        Preview →
+                      </Link>
+                    </>
+                  )}
+                </p>
               )}
             </>
           );
 
-          const rowClass =
-            "flex items-baseline gap-4 border-b border-line-soft py-6 sm:gap-6";
+          const cardClass =
+            "flex flex-col rounded-card border border-line-soft bg-surface p-5";
 
           return playable ? (
             <Link
               key={c.slug}
               href={`/tracks/${c.slug}`}
-              className={cn("group transition-colors hover:bg-foreground/[0.02]", rowClass)}
+              className={cn("card-interactive group hover:border-accent/40", cardClass)}
             >
               {inner}
             </Link>
           ) : (
             <div
               key={c.slug}
-              className={cn(rowClass, !c.hasContent && "opacity-70")}
+              className={cn(
+                cardClass,
+                !c.hasContent && "border-dashed bg-transparent",
+              )}
             >
               {inner}
             </div>

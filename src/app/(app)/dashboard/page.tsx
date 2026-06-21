@@ -99,9 +99,9 @@ export default async function DashboardPage() {
         {greetingFor(new Date().getHours())}, {firstName}.
       </h1>
       <p className="mt-2 max-w-xl text-base leading-relaxed text-muted-fg">
-        Ten focused minutes. Here&apos;s today&apos;s edition of your training.
+        Ten focused minutes — here&apos;s what&apos;s ready for you today.
       </p>
-      <div className="mt-6 border-t-2 border-foreground/80" />
+      <div className="mt-6 border-t border-line-soft" />
 
       {/* Bulletin */}
       {!hasPlacement && (
@@ -167,11 +167,11 @@ export default async function DashboardPage() {
           </div>
         </article>
 
-        {/* The desk */}
-        <aside className="border-t-2 border-foreground/80 pt-5 lg:border-l lg:border-t-0 lg:border-foreground/15 lg:pl-7 lg:pt-0">
-          <h2 className="eyebrow text-foreground">On the desk</h2>
-          <ul className="mt-3 divide-y divide-line-soft border-y border-line-soft">
-            <li className="py-4">
+        {/* Up next */}
+        <aside>
+          <h2 className="eyebrow text-foreground">Up next</h2>
+          <div className="mt-3 flex flex-col gap-3">
+            <div className="rounded-card border border-line-soft bg-surface p-4">
               <Kicker>Memory</Kicker>
               <div className="mt-1 flex items-baseline justify-between gap-3">
                 <h3 className="font-display text-lg font-semibold tracking-tight">
@@ -186,7 +186,7 @@ export default async function DashboardPage() {
               <p className="mt-1 text-sm leading-relaxed text-muted-fg">
                 {dueCount
                   ? `card${dueCount === 1 ? "" : "s"} due — clear them to keep the case sharp.`
-                  : "Nothing due. Finish a lesson to load its verses and arguments."}
+                  : "Nothing due yet. Finish a lesson to load its cards."}
               </p>
               {deskBtn(
                 "/review",
@@ -194,9 +194,9 @@ export default async function DashboardPage() {
                 dueCount ? "primary" : "outline",
                 !dueCount,
               )}
-            </li>
+            </div>
 
-            <li className="py-4">
+            <div className="rounded-card border border-line-soft bg-surface p-4">
               <Kicker>Drill</Kicker>
               <h3 className="mt-1 font-display text-lg font-semibold tracking-tight">
                 Drill of the day
@@ -206,9 +206,9 @@ export default async function DashboardPage() {
                 and a stronger answer.
               </p>
               {deskBtn("/respond", "Take the drill", "outline")}
-            </li>
+            </div>
 
-            <li className="py-4">
+            <div className="rounded-card border border-line-soft bg-surface p-4">
               <Kicker>Spar</Kicker>
               <h3 className="mt-1 font-display text-lg font-semibold tracking-tight">
                 Sparring ring
@@ -218,14 +218,14 @@ export default async function DashboardPage() {
                 then get the coach&apos;s film review.
               </p>
               {deskBtn("/spar", "Start a conversation", "outline")}
-            </li>
-          </ul>
+            </div>
+          </div>
         </aside>
       </div>
 
       {/* Honors */}
       <section className="mt-12">
-        <SectionHeading label="Honors" action="All courses" actionHref="/tracks" />
+        <SectionHeading label="Your badges" action="All courses" actionHref="/tracks" />
         {badges && badges.length > 0 ? (
           <div className="mt-4 flex flex-wrap gap-2">
             {badges.map((b) => (

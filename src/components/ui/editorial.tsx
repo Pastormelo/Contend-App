@@ -70,7 +70,7 @@ export function SectionHeading({
   return (
     <div className={cn("flex items-center gap-4", className)}>
       <h2 className="eyebrow shrink-0 text-foreground">{label}</h2>
-      <span aria-hidden className="h-px flex-1 bg-foreground/20" />
+      <span aria-hidden className="h-px flex-1 bg-line-strong" />
       {action && actionHref && (
         <Link
           href={actionHref}

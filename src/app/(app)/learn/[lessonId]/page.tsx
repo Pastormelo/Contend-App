@@ -96,7 +96,7 @@ export default async function LessonPage({
     <>
       <LessonProgressRail />
       <main className="mx-auto w-full max-w-[68ch] px-5 py-12 sm:px-6">
-        <header className="border-b-2 border-foreground/80 pb-7">
+        <header className="border-b border-line-strong pb-7">
           <Kicker>
             {trackTitle} · Level {levelNumber}
           </Kicker>
