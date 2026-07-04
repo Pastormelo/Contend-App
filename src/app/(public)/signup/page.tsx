@@ -22,20 +22,32 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
     const supabase = createClient();
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { name },
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
-      },
-    });
-    if (error) {
-      setError(error.message);
+    try {
+      const { error } = await Promise.race([
+        supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { name },
+            emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+          },
+        }),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error("timeout")), 15000),
+        ),
+      ]);
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+      setSent(true);
+    } catch {
+      setError(
+        "Couldn't reach the server. Check your connection and try again — if this keeps happening, the app's database may be paused.",
+      );
       setLoading(false);
-      return;
     }
-    setSent(true);
   }
 
   if (sent) {
